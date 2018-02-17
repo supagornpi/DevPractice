@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">DevPractice</string>
+
+    <string name="title_routes">Routes</string>
+    <string name="title_services">Services</string>
+    <string name="title_info">Info</string>
+    <string name="title_setting">Setting</string>
 </resources>
