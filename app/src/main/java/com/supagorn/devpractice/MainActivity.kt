@@ -66,9 +66,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun getNavPositionFromMenuItem(menuItem: MenuItem): Int {
         return when (menuItem.itemId) {
-            R.id.navigation_routes -> 0
-            R.id.navigation_service -> 1
-            R.id.navigation_info -> 2
+            R.id.navigation_home -> 0
+            R.id.navigation_customs -> 1
+            R.id.navigation_library -> 2
             R.id.navigation_setting -> 3
             else -> -1
         }
