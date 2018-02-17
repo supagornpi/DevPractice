@@ -1,5 +1,6 @@
 package com.supagorn.devpractice.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
@@ -30,5 +31,12 @@ public class ResolutionUtils {
         }
 
         return screenSize;
+    }
+
+    public static int getBannerHeightFromRatio(Context context) {
+        Float ratio = 7.0f / 15.0f;
+        Float properWith = (float) ResolutionUtils.getScreenSize(context)[0];
+        Float properHeight = properWith * ratio;
+        return properHeight.intValue();
     }
 }

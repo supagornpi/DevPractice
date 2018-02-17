@@ -20,17 +20,17 @@ abstract class AbstractFragment : Fragment() {
     protected abstract fun setLayoutView(): Int
     protected abstract fun setupView()
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(setLayoutView(), container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupView()
     }
 
     fun setTitle(stringId:Int) {
-        setTitle(context.resources.getString(stringId))
+        setTitle(context!!.resources.getString(stringId))
     }
 
     fun setTitle(title:String) {
@@ -50,15 +50,15 @@ abstract class AbstractFragment : Fragment() {
     }
 
     fun setToolbarColor(colorId: Int) {
-        rootView.setBackgroundColor(context.resources.getColor(colorId))
+        rootView.setBackgroundColor(context!!.resources.getColor(colorId))
     }
 
     fun setKeyboardVisibility(show: Boolean) {
-        val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         if (show) {
             imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
         } else {
-            imm.hideSoftInputFromWindow(activity.currentFocus.windowToken, 0)
+            imm.hideSoftInputFromWindow(activity!!.currentFocus.windowToken, 0)
         }
     }
 }

@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.MenuItem
 import com.supagorn.devpractice.customs.FragmentStateManager
 import com.supagorn.devpractice.ui.SampleFragment
+import com.supagorn.devpractice.ui.home.HomeFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -46,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         fragmentStateManager = object : FragmentStateManager(main_content, supportFragmentManager) {
             override fun getItem(position: Int): Fragment {
                 return when (position) {
-                    0 -> SampleFragment.newInstance(baseContext.resources.getString(R.string.title_home))
+                    0 -> HomeFragment()
                     1 -> SampleFragment.newInstance(baseContext.resources.getString(R.string.title_customs))
                     2 -> SampleFragment.newInstance(baseContext.resources.getString(R.string.title_library))
                     3 -> SampleFragment.newInstance(baseContext.resources.getString(R.string.title_setting))
