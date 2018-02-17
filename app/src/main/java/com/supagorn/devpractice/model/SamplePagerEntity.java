@@ -1,10 +1,7 @@
 package com.supagorn.devpractice.model;
 
-import com.google.gson.annotations.SerializedName;
-
 public class SamplePagerEntity {
 
-    @SerializedName("imageUrl")
     private String imageUrl;
 
     public String getImageUrl() {

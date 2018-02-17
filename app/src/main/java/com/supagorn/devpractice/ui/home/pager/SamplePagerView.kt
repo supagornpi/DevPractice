@@ -9,13 +9,13 @@ import android.widget.LinearLayout
 import com.supagorn.devpractice.R
 import com.supagorn.devpractice.model.SamplePagerEntity
 import com.supagorn.devpractice.ui.home.pager.adapter.SamplePagerAdapter
-import kotlinx.android.synthetic.main.view_home_pager.view.*
+import kotlinx.android.synthetic.main.view_sample_pager.view.*
 
 /**
  * Created by apple on 18/2/2018 AD.
  */
 
-class PagerView : LinearLayout {
+class SamplePagerView : LinearLayout {
 
     constructor(context: Context) : super(context) {
         init(context)
@@ -35,10 +35,10 @@ class PagerView : LinearLayout {
     }
 
     private fun init(context: Context) {
-        View.inflate(context, R.layout.view_home_pager, this)
+        View.inflate(context, R.layout.view_sample_pager, this)
     }
 
-    fun setSampleEntity(sampleEntities: MutableList<SamplePagerEntity>) {
+    fun setSampleEntity(sampleEntities: ArrayList<SamplePagerEntity>) {
         val pagerAdapter = SamplePagerAdapter()
         pagerAdapter.setSamplePagerEntities(sampleEntities)
 
