@@ -29,6 +29,14 @@ abstract class AbstractFragment : Fragment() {
         setupView()
     }
 
+    fun setTitle(stringId:Int) {
+        setTitle(context.resources.getString(stringId))
+    }
+
+    fun setTitle(title:String) {
+        tvTitle.text = title
+    }
+
     fun setIconLeft(iconId: Int) {
         btnIconLeft.setImageResource(iconId)
     }

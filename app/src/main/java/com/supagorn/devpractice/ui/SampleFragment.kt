@@ -1,5 +1,6 @@
 package com.supagorn.devpractice.ui
 
+import android.os.Bundle
 import com.supagorn.devpractice.R
 import com.supagorn.devpractice.customs.AbstractFragment
 
@@ -9,9 +10,16 @@ import com.supagorn.devpractice.customs.AbstractFragment
 
 class SampleFragment : AbstractFragment() {
 
+    private var mTitle: String? = null
+
     companion object {
-        fun newInstance(): SampleFragment {
-            return SampleFragment()
+        private const val ARG_TITLE = "ARG_TITLE"
+        fun newInstance(title: String): SampleFragment {
+            val fragment = SampleFragment()
+            val bundle = Bundle()
+            bundle.putString(ARG_TITLE, title)
+            fragment.arguments = bundle
+            return fragment
         }
     }
 
@@ -20,6 +28,10 @@ class SampleFragment : AbstractFragment() {
     }
 
     override fun setupView() {
-
+        //set title toolbar
+        mTitle = arguments?.getString(ARG_TITLE)
+        if(mTitle != null) {
+            setTitle(mTitle!!)
+        }
     }
 }

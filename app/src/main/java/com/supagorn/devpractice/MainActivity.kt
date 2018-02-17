@@ -46,11 +46,11 @@ class MainActivity : AppCompatActivity() {
         fragmentStateManager = object : FragmentStateManager(main_content, supportFragmentManager) {
             override fun getItem(position: Int): Fragment {
                 return when (position) {
-                    0 -> SampleFragment.newInstance()
-                    1 -> SampleFragment.newInstance()
-                    2 -> SampleFragment.newInstance()
-                    3 -> SampleFragment.newInstance()
-                    else -> SampleFragment.newInstance()
+                    0 -> SampleFragment.newInstance(baseContext.resources.getString(R.string.title_home))
+                    1 -> SampleFragment.newInstance(baseContext.resources.getString(R.string.title_customs))
+                    2 -> SampleFragment.newInstance(baseContext.resources.getString(R.string.title_library))
+                    3 -> SampleFragment.newInstance(baseContext.resources.getString(R.string.title_setting))
+                    else -> SampleFragment.newInstance(baseContext.resources.getString(R.string.title_home))
                 }
             }
         }
