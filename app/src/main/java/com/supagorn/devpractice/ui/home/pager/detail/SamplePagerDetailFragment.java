@@ -3,10 +3,12 @@ package com.supagorn.devpractice.ui.home.pager.detail;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.request.RequestOptions;
 import com.supagorn.devpractice.R;
 import com.supagorn.devpractice.customs.AbstractFragment;
 import com.supagorn.devpractice.customs.FragmentNavigation;
@@ -51,10 +53,33 @@ public class SamplePagerDetailFragment extends AbstractFragment {
         if (samplePagerEntity == null) return;
         bindAction();
 
+        dataBinding.tvTitle.setText("Detail");
+        dataBinding.appbarLayout.tvTitle.setText("Detail");
+
         dataBinding.appbarLayout.imgBanner.getLayoutParams().height =
                 ResolutionUtils.getBannerHeightFromRatio((getActivity()));
-        GlideLoader.Companion.load(getContext(), samplePagerEntity.getImageUrl(),
+        GlideLoader.Companion.load(getContext(), samplePagerEntity.getImageUrl(),new RequestOptions().centerCrop(),
                 dataBinding.appbarLayout.imgBanner);
+
+        setAppBarScrolling();
+    }
+
+    private void setAppBarScrolling() {
+        dataBinding.appbarLayout.appbarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                int minCollapseValue = appBarLayout.getTotalScrollRange();
+                int computerValue = verticalOffset < -1 ? (verticalOffset * -1) : verticalOffset;
+
+                float percent = ((float) (minCollapseValue - computerValue) / minCollapseValue);
+                setHeaderContentAlpha(percent);
+            }
+        });
+    }
+
+    private void setHeaderContentAlpha(float percent) {
+        dataBinding.tvTitle.setAlpha(1f - percent);
+        dataBinding.appbarLayout.tvTitle.setAlpha(percent);
     }
 
     private void lockContentBelowAppBar() {

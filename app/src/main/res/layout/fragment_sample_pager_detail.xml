@@ -3,44 +3,48 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <android.support.design.widget.CoordinatorLayout
+        <include
+            android:id="@+id/appbarLayout"
+            layout="@layout/appbar_layout" />
+
+        <TextView
+            android:id="@+id/tvTitle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="?android:attr/actionBarSize"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_large"
+            android:textStyle="bold" />
 
-            <include
-                android:id="@+id/appbar_layout"
-                layout="@layout/appbar_layout" />
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <android.support.v4.widget.NestedScrollView
+            <LinearLayout
+                android:id="@+id/layoutContent"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/color_white"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_small">
 
-                <LinearLayout
-                    android:id="@+id/layoutContent"
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingBottom="@dimen/padding_xxxlarge"
-                    android:paddingEnd="@dimen/padding_large"
-                    android:paddingStart="@dimen/padding_large"
-                    android:paddingTop="@dimen/padding_xxxlarge">
+                    android:layout_marginBottom="@dimen/padding_small"
+                    android:text="@string/app_name"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                    android:textColor="@color/color_white"
+                    tools:text="@string/app_name" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/padding_small"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                        tools:text="@string/app_name" />
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
 
-                </LinearLayout>
-            </android.support.v4.widget.NestedScrollView>
-        </android.support.design.widget.CoordinatorLayout>
-    </LinearLayout>
+    </android.support.design.widget.CoordinatorLayout>
 </layout>

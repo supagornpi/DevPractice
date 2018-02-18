@@ -92,23 +92,15 @@ public class HolderFragment extends Fragment implements FragmentNavigation {
 
     @Override
     public void open(Fragment fragment) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            fragment.setEnterTransition(new Slide(Gravity.END));
-        }
-
         getChildFragmentManager().beginTransaction()
                 .addToBackStack(null)
                 .setReorderingAllowed(true)
                 .replace(R.id.holderFrame, fragment)
-                .commitAllowingStateLoss();
+                .commit();
     }
 
     @Override
     public void replace(Fragment fragment, boolean addToBackStack) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            fragment.setEnterTransition(new Slide(Gravity.END));
-        }
-
         if (addToBackStack) {
             getChildFragmentManager().beginTransaction()
                     .addToBackStack(null)
