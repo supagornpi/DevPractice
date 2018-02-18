@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <dimen name="stroke_circle_indicator">0.5dp</dimen>
+    <dimen name="circle_indicator_width">3dp</dimen>
+    <dimen name="circle_indicator_height">3dp</dimen>
+
     <dimen name="padding_tiny">3dp</dimen>
     <dimen name="padding_mini">5dp</dimen>
     <dimen name="padding_small">10dp</dimen>

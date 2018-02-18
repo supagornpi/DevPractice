@@ -20,20 +20,20 @@ abstract class AbstractFragment : Fragment() {
     protected abstract fun setLayoutView(): Int
     protected abstract fun setupView()
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(setLayoutView(), container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(setLayoutView(), container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupView()
     }
 
-    fun setTitle(stringId:Int) {
+    fun setTitle(stringId: Int) {
         setTitle(context.resources.getString(stringId))
     }
 
-    fun setTitle(title:String) {
+    fun setTitle(title: String) {
         tvTitle.text = title
     }
 
