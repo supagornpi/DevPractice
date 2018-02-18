@@ -47,15 +47,15 @@ public class SamplePagerAdapter extends PagerAdapter {
         final SamplePagerEntity entity = samplePagerEntities.get(position);
         GlideLoader.Companion.load(mContext, entity.getImageUrl(),
                 new RequestOptions().centerCrop(), imgBanner);
-//        view.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (onItemClickListener == null) {
-//                    return;
-//                }
-//                onItemClickListener.onItemClicked(entity);
-//            }
-//        });
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (onItemClickListener == null) {
+                    return;
+                }
+                onItemClickListener.onItemClicked(entity);
+            }
+        });
         container.addView(view);
         return view;
     }

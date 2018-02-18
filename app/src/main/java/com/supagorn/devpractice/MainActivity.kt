@@ -47,11 +47,11 @@ class MainActivity : AppCompatActivity() {
         fragmentStateManager = object : FragmentStateManager(main_content, supportFragmentManager) {
             override fun getItem(position: Int): Fragment {
                 return when (position) {
-                    0 -> HomeFragment()
-                    1 -> SampleFragment.newInstance(baseContext.resources.getString(R.string.title_customs))
-                    2 -> SampleFragment.newInstance(baseContext.resources.getString(R.string.title_library))
-                    3 -> SampleFragment.newInstance(baseContext.resources.getString(R.string.title_setting))
-                    else -> SampleFragment.newInstance(baseContext.resources.getString(R.string.title_home))
+                    0 -> HolderFragment.newInstance(Tabs.Home)
+                    1 -> HolderFragment.newInstance(Tabs.Category)
+                    2 -> HolderFragment.newInstance(Tabs.Library)
+                    3 -> HolderFragment.newInstance(Tabs.Setting)
+                    else -> HolderFragment.newInstance(Tabs.Home)
                 }
             }
         }
@@ -96,4 +96,5 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
 }
