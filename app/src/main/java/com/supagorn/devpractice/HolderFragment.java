@@ -1,12 +1,9 @@
 package com.supagorn.devpractice;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.transition.Slide;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +12,7 @@ import android.widget.FrameLayout;
 import com.supagorn.devpractice.customs.FragmentNavigation;
 import com.supagorn.devpractice.ui.SampleFragment;
 import com.supagorn.devpractice.ui.home.HomeFragment;
+import com.supagorn.devpractice.ui.setting.SettingFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -72,7 +70,7 @@ public class HolderFragment extends Fragment implements FragmentNavigation {
                     fragment = SampleFragment.Companion.newInstance(getActivity().getResources().getString(R.string.title_library));
                     break;
                 case Setting:
-                    fragment = SampleFragment.Companion.newInstance(getActivity().getResources().getString(R.string.title_setting));
+                    fragment = new SettingFragment();
                     break;
                 default:
                     break;
