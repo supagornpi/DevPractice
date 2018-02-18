@@ -43,19 +43,18 @@ public class SamplePagerAdapter extends PagerAdapter {
         ImageView imgBanner = view.findViewById(R.id.imgBanner);
         //set banner height
         imgBanner.getLayoutParams().height = ResolutionUtils.getBannerHeightFromRatio((mContext));
-        imgBanner.setBackgroundColor(mContext.getResources().getColor(R.color.color_blue));
         final SamplePagerEntity entity = samplePagerEntities.get(position);
         GlideLoader.Companion.load(mContext, entity.getImageUrl(),
                 new RequestOptions().centerCrop(), imgBanner);
-//        view.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (onItemClickListener == null) {
-//                    return;
-//                }
-//                onItemClickListener.onItemClicked(entity);
-//            }
-//        });
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (onItemClickListener == null) {
+                    return;
+                }
+                onItemClickListener.onItemClicked(entity);
+            }
+        });
         container.addView(view);
         return view;
     }

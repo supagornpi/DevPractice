@@ -7,8 +7,10 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
 import com.supagorn.devpractice.R
+import com.supagorn.devpractice.customs.FragmentNavigation
 import com.supagorn.devpractice.model.SamplePagerEntity
 import com.supagorn.devpractice.ui.home.pager.adapter.SamplePagerAdapter
+import com.supagorn.devpractice.ui.home.pager.detail.SamplePagerDetailFragment
 import kotlinx.android.synthetic.main.view_sample_pager.view.*
 
 /**
@@ -16,6 +18,8 @@ import kotlinx.android.synthetic.main.view_sample_pager.view.*
  */
 
 class SamplePagerView : LinearLayout {
+
+    private var fragmentNavigation: FragmentNavigation? = null
 
     constructor(context: Context) : super(context) {
         init(context)
@@ -38,6 +42,10 @@ class SamplePagerView : LinearLayout {
         View.inflate(context, R.layout.view_sample_pager, this)
     }
 
+    fun setNavigation(fragmentNavigation: FragmentNavigation) {
+        this.fragmentNavigation = fragmentNavigation
+    }
+
     fun setSampleEntity(sampleEntities: ArrayList<SamplePagerEntity>) {
         val pagerAdapter = SamplePagerAdapter()
         pagerAdapter.setSamplePagerEntities(sampleEntities)
@@ -47,6 +55,12 @@ class SamplePagerView : LinearLayout {
         circleindicator.removeAllViews()
         if (pagerAdapter.count > 1) {
             circleindicator.setViewPager(viewPager)
+        }
+
+        pagerAdapter.setOnItemClickListener { samplePagerEntity ->
+            if (fragmentNavigation != null) {
+                fragmentNavigation!!.open(SamplePagerDetailFragment.newInstance(samplePagerEntity))
+            }
         }
     }
 

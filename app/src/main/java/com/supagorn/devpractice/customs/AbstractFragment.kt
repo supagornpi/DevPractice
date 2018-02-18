@@ -17,6 +17,8 @@ import kotlinx.android.synthetic.main.layout_action_bar.*
  */
 abstract class AbstractFragment : Fragment() {
 
+    var fragmentNavigation: FragmentNavigation? = null
+
     protected abstract fun setLayoutView(): Int
     protected abstract fun setupView()
 
@@ -27,6 +29,13 @@ abstract class AbstractFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupView()
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        if (parentFragment != null && parentFragment is FragmentNavigation) {
+            fragmentNavigation = parentFragment as FragmentNavigation
+        }
     }
 
     fun setTitle(stringId: Int) {
@@ -59,6 +68,16 @@ abstract class AbstractFragment : Fragment() {
             imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
         } else {
             imm.hideSoftInputFromWindow(activity.currentFocus.windowToken, 0)
+        }
+    }
+
+    fun setOnclickButtonLeft() {
+        if (btnIconLeft != null) {
+            btnIconLeft.setOnClickListener({
+                if (fragmentNavigation != null) {
+                    fragmentNavigation!!.navigateBack()
+                }
+            })
         }
     }
 }

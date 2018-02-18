@@ -1,5 +1,8 @@
 package com.supagorn.devpractice.model;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class SamplePagerEntity {
 
     private String imageUrl;
