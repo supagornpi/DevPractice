@@ -47,7 +47,7 @@ public class HomeFragment extends AbstractFragment {
         if (view == null) {
             return;
         }
-        samplePagerView = view.findViewById(R.id.pagerView);
+        samplePagerView = view.findViewById(R.id.samplePagerView);
 
     }
 }
