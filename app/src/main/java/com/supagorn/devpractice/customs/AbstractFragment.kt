@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.RelativeLayout
+import com.supagorn.devpractice.R
+import com.supagorn.devpractice.ui.sidebar.SideMenu
 import com.supagorn.devpractice.utils.ResolutionUtils
 import kotlinx.android.synthetic.main.layout_action_bar.*
 
@@ -79,5 +81,14 @@ abstract class AbstractFragment : Fragment() {
                 }
             })
         }
+    }
+
+    fun showUserToggleWithAction() {
+        btnRight.visibility = View.VISIBLE
+        btnRight.setImageResource(R.drawable.ic_profile_user)
+        btnRight.setOnClickListener({
+            val sideMenuActivity = activity as SideMenu
+            sideMenuActivity.openSideMenu()
+        })
     }
 }

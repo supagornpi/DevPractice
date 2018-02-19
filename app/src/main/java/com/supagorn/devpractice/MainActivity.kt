@@ -1,20 +1,21 @@
 package com.supagorn.devpractice
 
 import android.annotation.SuppressLint
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
+import android.support.v4.widget.DrawerLayout
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.Gravity
 import android.view.MenuItem
 import com.supagorn.devpractice.customs.FragmentStateManager
-import com.supagorn.devpractice.ui.SampleFragment
-import com.supagorn.devpractice.ui.home.HomeFragment
+import com.supagorn.devpractice.ui.sidebar.SideMenu
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), SideMenu {
 
     companion object {
         @SuppressLint("StaticFieldLeak")
@@ -23,6 +24,9 @@ class MainActivity : AppCompatActivity() {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         val position = getNavPositionFromMenuItem(item)
+        //lock side bar
+        drawerLayout.setDrawerLockMode(if (position == 0)
+            DrawerLayout.LOCK_MODE_UNLOCKED else DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
         if (position != -1) {
             fragmentStateManager?.changeFragment(getNavPositionFromMenuItem(item))
@@ -94,7 +98,17 @@ class MainActivity : AppCompatActivity() {
         } catch (e: IllegalAccessException) {
             Log.e("ERROR ILLEGAL ALG", "Unable to change value of shift mode")
         }
-
     }
 
+    override fun openSideMenu() {
+        drawerLayout.openDrawer(Gravity.END)
+    }
+
+    override fun closeSideMenu() {
+        drawerLayout.closeDrawer(Gravity.END)
+    }
+
+    override fun openFragment(fragment: Fragment?) {
+
+    }
 }
