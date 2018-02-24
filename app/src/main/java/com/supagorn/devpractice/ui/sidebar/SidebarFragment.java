@@ -11,6 +11,7 @@ import android.view.animation.AnimationUtils;
 
 import com.supagorn.devpractice.R;
 import com.supagorn.devpractice.databinding.FragmentSidebarBinding;
+import com.supagorn.devpractice.utils.GlideLoader;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,5 +41,9 @@ public class SidebarFragment extends Fragment {
     private void startAnimation() {
         binding.imageviewNewPendingGift.startAnimation(
                 AnimationUtils.loadAnimation(getActivity(), R.anim.rotate_indefinitely));
+        //load image profile in circle
+        GlideLoader.Companion.loadImageCircle(
+                getActivity().getApplicationContext(),
+                R.mipmap.ic_launcher, binding.imgProfileImage);
     }
 }

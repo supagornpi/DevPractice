@@ -1,4 +1,5 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
@@ -21,13 +22,14 @@
                     android:id="@+id/imageviewProfileCover"
                     android:layout_width="match_parent"
                     android:layout_height="145dp"
-                    android:scaleType="centerCrop" />
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/img_jessica_jones" />
 
-                <!--<com.github.mmin18.widget.RealtimeBlurView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--app:realtimeBlurRadius="5dp"-->
-                <!--app:realtimeOverlayColor="@color/color_white_transparent_0" />-->
+                <com.github.mmin18.widget.RealtimeBlurView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:realtimeBlurRadius="5dp"
+                    app:realtimeOverlayColor="#8000" />
 
             </RelativeLayout>
 
@@ -43,9 +45,9 @@
                     android:layout_margin="8dp"
                     android:gravity="center"
                     android:lines="1"
+                    android:text="Jesica Jones"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/color_black"
-                    tools:text="UserName" />
+                    android:textColor="@color/color_white" />
 
                 <FrameLayout
                     android:id="@+id/profileImageLayout"
@@ -60,7 +62,7 @@
                         android:layout_marginRight="16dp">
 
                         <ImageView
-                            android:id="@+id/imageviewProfileImage"
+                            android:id="@+id/imgProfileImage"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="4dp"
