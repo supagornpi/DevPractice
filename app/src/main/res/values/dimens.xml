@@ -32,4 +32,10 @@
     <dimen name="text_large">9pt</dimen>
     <dimen name="text_xlarge">10pt</dimen>
     <dimen name="text_2xlarge">11pt</dimen>
+
+    <!-- Shimmer place holder -->
+    <dimen name="activity_padding">16dp</dimen>
+    <dimen name="placeholder_image">50dp</dimen>
+    <dimen name="placeholder_text_height">8dp</dimen>
+
 </resources>

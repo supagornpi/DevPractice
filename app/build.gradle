@@ -36,6 +36,11 @@ dependencies {
     implementation 'org.parceler:parceler-api:1.1.9'                //Parceler
     annotationProcessor 'org.parceler:parceler:1.1.9'               //Parceler
     implementation 'com.github.mmin18:realtimeblurview:1.1.0'       //Real time blur view
+    implementation 'com.github.mmin18:realtimeblurview:1.1.0'       //Real time blur view
+    implementation 'org.jsoup:jsoup:1.8.3'                          // required for leocardz link preview
+    implementation 'com.leocardz:link-preview:2.0.0@aar'            //leocardz link preview
+    implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'         //place holder like Facebook
+    implementation 'com.android.support:customtabs:26.1.0'          //chrome custom tabs
 
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
