@@ -21,5 +21,12 @@ class GlideLoader {
                     .apply(requestOptions)
                     .into(imageView)
         }
+
+        fun loadImageCircle(context: Context, imageId: Int, imageView: ImageView) {
+            Glide.with(context)
+                    .load(imageId)
+                    .apply(RequestOptions().fitCenter().circleCrop())
+                    .into(imageView)
+        }
     }
 }

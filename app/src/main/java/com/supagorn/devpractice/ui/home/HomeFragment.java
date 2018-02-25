@@ -31,7 +31,7 @@ public class HomeFragment extends AbstractFragment {
     protected void setupView() {
         bindUI(getView());
         setTitle(R.string.title_home);
-
+        showUserToggleWithAction();
         setSampleViewPager();
     }
 
