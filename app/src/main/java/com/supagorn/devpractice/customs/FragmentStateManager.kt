@@ -31,13 +31,15 @@ abstract class FragmentStateManager(private var container: ViewGroup, private va
             fragment = getItem(position)
             fragmentTransaction.add(container.id, fragment, tag)
         } else {
-            fragmentTransaction.attach(fragment)
+            //show fragment
+            fragmentTransaction.show(fragment)
         }
 
         // Detach existing primary fragment
         val curFrag = mFragmentManager.primaryNavigationFragment
         if (curFrag != null) {
-            fragmentTransaction.detach(curFrag)
+            //hide current fragment
+            fragmentTransaction.hide(curFrag)
         }
 
         // Set fragment as primary navigator for child manager back stack to be handled by system
