@@ -117,5 +117,6 @@
             </LinearLayout>
         </FrameLayout>
 
+        <include layout="@layout/layout_scrolling_background" />
     </LinearLayout>
 </layout>
