@@ -1,9 +1,14 @@
 package com.supagorn.devpractice.ui.library
 
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
+import com.leocardz.link.preview.library.LinkPreviewCallback
+import com.leocardz.link.preview.library.SourceContent
+import com.leocardz.link.preview.library.TextCrawler
 import com.supagorn.devpractice.R
 import com.supagorn.devpractice.customs.AbstractFragment
 import com.supagorn.devpractice.ui.library.adapter.LibraryAdapter
+import com.supagorn.devpractice.ui.library.model.LinkPreviewEntity
 import kotlinx.android.synthetic.main.fragment_library.*
 
 /**
@@ -23,10 +28,37 @@ class LibraryFragment : AbstractFragment() {
         initRecyclerView()
     }
 
-    private fun  initRecyclerView() {
+    private fun initRecyclerView() {
+        //start animation of place holder
+        shimmerViewContainer.startShimmerAnimation()
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = libraryAdapter
-        libraryAdapter.setLinks(Links.getLinks())
+
+        setLinkData()
     }
 
+    private fun setLinkData() {
+        val links = Links.getLinks()
+        //load detail from url
+        for (link: String in links) {
+            val textCrawler = TextCrawler()
+            textCrawler.makePreview(object : LinkPreviewCallback {
+                override fun onPre() {}
+                override fun onPos(sourceContent: SourceContent, isNull: Boolean) {
+                    if (!isNull) {
+                        //hide shimmer
+                        if (shimmerViewContainer.isShown) {
+                            //stop animation place holder
+                            shimmerViewContainer.stopShimmerAnimation()
+                            //hide place holder
+                            shimmerViewContainer.visibility = View.GONE
+                        }
+                        val imageUrl = sourceContent.images.lastOrNull() ?: ""
+                        libraryAdapter.addLinks(LinkPreviewEntity(sourceContent.title, sourceContent.description,
+                                sourceContent.url, imageUrl))
+                    }
+                }
+            }, link)
+        }
+    }
 }
