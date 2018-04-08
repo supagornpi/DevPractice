@@ -4,6 +4,7 @@ class SettingPresenter constructor(val view: SettingContract.View) : SettingCont
 
     override fun start() {
         val settings: MutableList<Settings> = mutableListOf()
+        settings.add(Settings.ChangeLanguage)
         settings.add(Settings.Notification)
         settings.add(Settings.Version)
         settings.add(Settings.About)

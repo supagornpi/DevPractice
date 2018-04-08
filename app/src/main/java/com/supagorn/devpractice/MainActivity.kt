@@ -11,11 +11,12 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Gravity
 import android.view.MenuItem
+import com.supagorn.devpractice.customs.BaseActivity
 import com.supagorn.devpractice.customs.FragmentStateManager
 import com.supagorn.devpractice.ui.sidebar.SideMenu
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), SideMenu {
+class MainActivity : BaseActivity(), SideMenu {
 
     companion object {
         @SuppressLint("StaticFieldLeak")

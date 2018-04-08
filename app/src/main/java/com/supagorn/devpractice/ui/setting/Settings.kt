@@ -5,6 +5,7 @@ import java.util.*
 
 enum class Settings constructor(val id: Int, val nameId: Int, val type: SettingType) {
 
+    ChangeLanguage(4, R.string.setting_change_language, SettingType.Custom),
     Notification(0, R.string.setting_notification, SettingType.Toggle),
     Version(1, R.string.setting_version, SettingType.Text),
     About(2, R.string.setting_about, SettingType.Normal),

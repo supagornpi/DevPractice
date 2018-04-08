@@ -7,9 +7,17 @@
     <string name="title_setting">Setting</string>
 
     <!-- Setting -->
+    <string name="setting_change_language">Change Language</string>
     <string name="setting_notification">Notification</string>
     <string name="setting_version">Version</string>
     <string name="setting_about">About</string>
     <string name="setting_privacy_policy">Privacy Policy</string>
+
+    <!--Dialog-->
+    <string name="dialog_select_language">Select language</string>
+
+    <!-- language -->
+    <string name="language_thai" translatable="false">ไทย</string>
+    <string name="language_english" translatable="false">English</string>
 
 </resources>

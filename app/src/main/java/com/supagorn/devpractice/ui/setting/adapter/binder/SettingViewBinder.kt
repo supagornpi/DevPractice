@@ -12,6 +12,7 @@ class SettingViewBinder {
                 SettingType.Normal -> {binder = NormalBinder()}
                 SettingType.Toggle -> {binder = ToggleBinder()}
                 SettingType.Text -> {binder = TextBinder()}
+                SettingType.Custom -> {binder = CustomIconBinder()}
                 else -> {
                 }
             }

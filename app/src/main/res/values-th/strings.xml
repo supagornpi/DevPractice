@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">DevPractice</string>
+
+    <string name="title_home">หน้าหลัก</string>
+    <string name="title_customs">ปรับแต่ง</string>
+    <string name="title_library">ไลบารี่</string>
+    <string name="title_setting">ตั้งค่า</string>
+
+    <!-- Setting -->
+    <string name="setting_change_language">เปลี่ยนภาษา</string>
+    <string name="setting_notification">การแจ้งเตือน</string>
+    <string name="setting_version">เวอร์ชั่น</string>
+    <string name="setting_about">เกี่ยวกับ</string>
+    <string name="setting_privacy_policy">Privacy Policy</string>
+
+    <!--Dialog-->
+    <string name="dialog_select_language">เลือกภาษา</string>
+
+    <!-- language -->
+    <string name="language_thai" translatable="false">ไทย</string>
+    <string name="language_english" translatable="false">English</string>
+
+</resources>

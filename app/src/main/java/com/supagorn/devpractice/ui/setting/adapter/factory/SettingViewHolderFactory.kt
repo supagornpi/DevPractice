@@ -15,6 +15,7 @@ class SettingViewHolderFactory {
                 }
                 SettingType.Text -> {creator = TextCreator()
                 }
+                SettingType.Custom -> {creator = CustomIconCreator()}
                 else -> {
                 }
             }

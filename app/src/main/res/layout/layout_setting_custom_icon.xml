@@ -24,9 +24,12 @@
             tools:text="title" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_next" />
+            android:id="@+id/ivIcon"
+            android:layout_width="@dimen/custom_icon_width"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            tools:src="@drawable/img_setting_flag_thai" />
+
     </LinearLayout>
 
     <View

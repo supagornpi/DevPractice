@@ -7,7 +7,13 @@
 
     <dimen name="line_small">1dp</dimen>
 
+    <!--<dimen name="corner_mini">3dp</dimen>-->
+    <!--<dimen name="corner_small">7dp</dimen>-->
+    <!--<dimen name="corner_normal">10dp</dimen>-->
+    <dimen name="corner_large">15dp</dimen>
+
     <!-- Setting -->
+    <dimen name="custom_icon_width">35dp</dimen>
     <dimen name="toggle_width">45dp</dimen>
     <dimen name="toggle_height">45dp</dimen>
     <dimen name="setting_item_height">50dp</dimen>
