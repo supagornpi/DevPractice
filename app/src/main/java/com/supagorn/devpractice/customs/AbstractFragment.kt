@@ -83,6 +83,14 @@ abstract class AbstractFragment : Fragment() {
         }
     }
 
+    fun setButtonRight(icon: Int, onClickListener: View.OnClickListener) {
+        if (btnRight != null) {
+            btnRight.setImageResource(icon)
+            btnRight.visibility = View.VISIBLE
+            btnRight.setOnClickListener(onClickListener)
+        }
+    }
+
     fun showUserToggleWithAction() {
         btnRight.visibility = View.VISIBLE
         btnRight.setImageResource(R.drawable.ic_profile_user)

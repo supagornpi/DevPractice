@@ -6,6 +6,8 @@
     <string name="title_library">ไลบารี่</string>
     <string name="title_setting">ตั้งค่า</string>
 
+    <string name="error_not_found">ไม่พบ</string>
+
     <!-- Setting -->
     <string name="setting_change_language">เปลี่ยนภาษา</string>
     <string name="setting_notification">การแจ้งเตือน</string>

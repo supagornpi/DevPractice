@@ -1,9 +1,13 @@
 package com.supagorn.devpractice.utils;
 
-import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.DisplayMetrics;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+
+import com.supagorn.devpractice.R;
 
 public class ResolutionUtils {
 
@@ -38,5 +42,19 @@ public class ResolutionUtils {
         Float properWith = (float) ResolutionUtils.getScreenSize(context)[0];
         Float properHeight = properWith * ratio;
         return properHeight.intValue();
+    }
+
+    public static void setViewSize(Context context, float scaleWidth, float scaleHeight, View view) {
+        //set image size
+        Resources resources = context.getResources();
+        int screenWidth = ResolutionUtils.getScreenSize(context)[0];
+        int viewMargin = resources.getDimensionPixelOffset(R.dimen.padding_small) * 2;
+        int viewWidth = ((int) Math.floor(screenWidth / scaleWidth)) - viewMargin;
+        int viewHeight = ((int) Math.floor(screenWidth / scaleHeight) - viewMargin);
+
+        ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+        layoutParams.width = viewWidth;
+        layoutParams.height = viewHeight;
+        view.setLayoutParams(layoutParams);
     }
 }

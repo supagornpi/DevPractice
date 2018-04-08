@@ -1,4 +1,4 @@
-package com.supagorn.devpractice
+package com.supagorn.devpractice.base
 
 interface BasePresenter {
 
