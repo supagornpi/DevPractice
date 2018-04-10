@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.supagorn.devpractice.customs.widget.WrapContentHeightViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <me.relex.circleindicator.CircleIndicator
+            android:id="@+id/circleindicator"
+            ci_drawable="@drawable/circle_indicator_unactive"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/padding_small"
+            app:ci_animator="@null"
+            app:ci_animator_reverse="@null"
+            app:ci_drawable="@drawable/circle_indicator_active"
+            app:ci_drawable_unselected="@drawable/circle_indicator_unactive"
+            app:ci_height="@dimen/circle_indicator_height"
+            app:ci_width="@dimen/circle_indicator_width" />
+
+    </RelativeLayout>
+
+</LinearLayout>

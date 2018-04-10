@@ -1,3 +1,28 @@
 <resources>
     <string name="app_name">DevPractice</string>
+
+    <string name="title_home">Home</string>
+    <string name="title_customs">Customs</string>
+    <string name="title_library">Library</string>
+    <string name="title_setting">Setting</string>
+
+    <string name="error_not_found">Not Found</string>
+
+    <string name="price_format" translatable="false">฿%,.0f</string>
+    <string name="price_percentage" translatable="false">%,.0f%%</string>
+
+    <!-- Setting -->
+    <string name="setting_change_language">Change Language</string>
+    <string name="setting_notification">Notification</string>
+    <string name="setting_version">Version</string>
+    <string name="setting_about">About</string>
+    <string name="setting_privacy_policy">Privacy Policy</string>
+
+    <!--Dialog-->
+    <string name="dialog_select_language">Select language</string>
+
+    <!-- language -->
+    <string name="language_thai" translatable="false">ไทย</string>
+    <string name="language_english" translatable="false">English</string>
+
 </resources>

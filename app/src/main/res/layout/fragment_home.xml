@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_action_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/layoutPagerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_small"
+            android:background="@color/colorPrimaryDark" />
+
+        <Button
+            android:id="@+id/btnAllProduct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?selectableItemBackground"
+            android:drawableEnd="@drawable/ic_next"
+            android:gravity="start|center_vertical"
+            android:padding="@dimen/padding_small"
+            android:text="All Product"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/text_small" />
+
+    </LinearLayout>
+
+</LinearLayout>

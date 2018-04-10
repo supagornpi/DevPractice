@@ -1,0 +1,122 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="@dimen/sidebar_width"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="145dp">
+
+                <ImageView
+                    android:id="@+id/imageviewProfileCover"
+                    android:layout_width="match_parent"
+                    android:layout_height="145dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/img_jessica_jones" />
+
+                <com.github.mmin18.widget.RealtimeBlurView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:realtimeBlurRadius="5dp"
+                    app:realtimeOverlayColor="#8000" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="145dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textviewUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:text="Jesica Jones"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/color_white" />
+
+                <FrameLayout
+                    android:id="@+id/profileImageLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal">
+
+                    <FrameLayout
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp">
+
+                        <ImageView
+                            android:id="@+id/imgProfileImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="4dp"
+                            android:scaleType="fitCenter"
+                            tools:src="@mipmap/ic_launcher" />
+                    </FrameLayout>
+
+                </FrameLayout>
+
+            </LinearLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary">
+
+            <LinearLayout
+                android:id="@+id/layoutNewPendingGift"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:visibility="visible">
+
+                <ImageView
+                    android:id="@+id/imageviewNewPendingGift"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="16dp"
+                    android:src="@drawable/ic_gift" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_weight="1"
+                    android:text="New Gift Pending"
+                    android:textColor="@color/color_white" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="16dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_next" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <include layout="@layout/layout_scrolling_background" />
+    </LinearLayout>
+</layout>
