@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 
 import com.supagorn.devpractice.customs.FragmentNavigation;
 import com.supagorn.devpractice.ui.SampleFragment;
+import com.supagorn.devpractice.ui.category.CategoryFragment;
 import com.supagorn.devpractice.ui.home.HomeFragment;
 import com.supagorn.devpractice.ui.library.LibraryFragment;
 import com.supagorn.devpractice.ui.setting.SettingFragment;
@@ -65,7 +66,7 @@ public class HolderFragment extends Fragment implements FragmentNavigation {
                     fragment = new HomeFragment();
                     break;
                 case Category:
-                    fragment = SampleFragment.Companion.newInstance(getActivity().getResources().getString(R.string.title_customs));
+                    fragment = new CategoryFragment();
                     break;
                 case Library:
                     fragment = new LibraryFragment();

@@ -47,6 +47,9 @@ class LibraryFragment : AbstractFragment() {
                 override fun onPos(sourceContent: SourceContent, isNull: Boolean) {
                     if (!isNull) {
                         //hide shimmer
+                        if (shimmerViewContainer == null) {
+                            return
+                        }
                         if (shimmerViewContainer.isShown) {
                             //stop animation place holder
                             shimmerViewContainer.stopShimmerAnimation()

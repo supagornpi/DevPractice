@@ -15,6 +15,7 @@ android {
         renderscriptSupportModeEnabled true
 
         buildConfigField "String", "SERVER_BASE", '"http://203.154.45.108/webservice/api/"'
+        buildConfigField "String", "GOOGLE_API_KEY", '"AIzaSyC5BAwCIjTPSi2_wI3r0xIeqRGuM6LhecM"'
 
     }
     buildTypes {
@@ -49,7 +50,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'        //retrofit
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'       //rx java
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'               //rx java
-
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

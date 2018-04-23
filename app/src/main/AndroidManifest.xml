@@ -21,6 +21,10 @@
         <activity
             android:name=".ui.home.product.ProductsActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.video.VideoFullScreenActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="sensorPortrait" />
     </application>
 
 </manifest>

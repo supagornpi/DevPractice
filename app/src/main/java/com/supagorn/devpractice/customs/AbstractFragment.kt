@@ -61,7 +61,7 @@ abstract class AbstractFragment : Fragment() {
     }
 
     fun setToolbarColor(colorId: Int) {
-        rootView.setBackgroundColor(context.resources.getColor(colorId))
+        actionbar.setBackgroundColor(context.resources.getColor(colorId))
     }
 
     fun setKeyboardVisibility(show: Boolean) {

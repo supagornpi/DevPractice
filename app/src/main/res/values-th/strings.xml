@@ -22,4 +22,6 @@
     <string name="language_thai" translatable="false">ไทย</string>
     <string name="language_english" translatable="false">English</string>
 
+    <!--Category-->
+    <string name="category_video">วีดีโอ</string>
 </resources>

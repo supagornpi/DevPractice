@@ -7,6 +7,7 @@
     <string name="title_setting">Setting</string>
 
     <string name="error_not_found">Not Found</string>
+    <string name="error_player" translatable="false">There was an error initializing the YouTubePlayer (%1$s)</string>
 
     <string name="price_format" translatable="false">฿%,.0f</string>
     <string name="price_percentage" translatable="false">%,.0f%%</string>
@@ -25,4 +26,6 @@
     <string name="language_thai" translatable="false">ไทย</string>
     <string name="language_english" translatable="false">English</string>
 
+    <!--Category-->
+    <string name="category_video">Video</string>
 </resources>

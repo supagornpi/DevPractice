@@ -22,6 +22,12 @@ class GlideLoader {
                     .into(imageView)
         }
 
+        fun load(context: Context, image: Int, imageView: ImageView) {
+            Glide.with(context)
+                    .load(image)
+                    .into(imageView)
+        }
+
         fun loadImageCircle(context: Context, imageId: Int, imageView: ImageView) {
             Glide.with(context)
                     .load(imageId)
