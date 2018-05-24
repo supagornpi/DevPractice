@@ -25,6 +25,7 @@ class MainActivity : BaseActivity(), SideMenu {
 
         fun start() {
             val intent = Intent(MyApplication.instance, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
             MyApplication.instance.startActivity(intent)
         }
     }
