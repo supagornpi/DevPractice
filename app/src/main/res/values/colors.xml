@@ -13,6 +13,7 @@
     <color name="color_gray_light">#f2f2f2</color>
     <color name="color_gray">#bebebe</color>
     <color name="color_black">#282828</color>
+    <color name="color_red_dark">#d9001d</color>
 
     <!-- Shimmer place holder -->
     <color name="placeholder_bg">#dddddd</color>
@@ -20,4 +21,7 @@
     <color name="description">#1a1a1a</color>
     <color name="chef">#777</color>
     <color name="timestamp">#777</color>
+
+    <color name="color_line">#ededed</color>
+
 </resources>

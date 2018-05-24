@@ -1,6 +1,7 @@
 package com.supagorn.devpractice
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
@@ -21,6 +22,12 @@ class MainActivity : BaseActivity(), SideMenu {
     companion object {
         @SuppressLint("StaticFieldLeak")
         var fragmentStateManager: FragmentStateManager? = null
+
+        fun start() {
+            val intent = Intent(MyApplication.instance, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            MyApplication.instance.startActivity(intent)
+        }
     }
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
