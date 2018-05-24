@@ -4,7 +4,7 @@ import com.supagorn.devpractice.base.BaseView
 
 interface LoginContract {
     interface Presenter {
-        fun validate(email: String, password: String)
+        fun login(email: String, password: String)
     }
 
     interface View : BaseView.Progress {

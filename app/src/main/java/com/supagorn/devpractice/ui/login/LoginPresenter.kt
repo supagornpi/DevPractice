@@ -7,24 +7,28 @@ class LoginPresenter constructor(private var view: LoginContract.View) : LoginCo
 
     private var mAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
-    override fun validate(email: String, password: String) {
+    private fun validate(email: String, password: String): Boolean {
+        var isValid = false
         if (ValidatorUtils.isInValidEmail(email)) {
             view.showEmailInvalid()
         } else if (ValidatorUtils.isInValidPassword(password)) {
             view.showPasswordInvalid()
         } else {
-            login(email, password)
+            isValid = true
         }
+        return isValid
     }
 
-    private fun login(email: String, password: String) {
-        view.showProgressDialog()
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-            view.hideProgressDialog()
-            if (task.isSuccessful) {
-                view.loginSuccess()
-            } else {
-                view.loginFailed()
+    override fun login(email: String, password: String) {
+        if (validate(email, password)) {
+            view.showProgressDialog()
+            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+                view.hideProgressDialog()
+                if (task.isSuccessful) {
+                    view.loginSuccess()
+                } else {
+                    view.loginFailed()
+                }
             }
         }
     }

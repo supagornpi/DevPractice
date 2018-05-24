@@ -60,7 +60,7 @@ class LoginActivity : AbstractActivity(), LoginContract.View {
         rootView.setOnTouchListener(DismissKeyboardListener(this))
 
         btnLogin.setOnClickListener {
-            presenter.validate(edtEmail.text.toString().trim(), edtPassword.text.toString().trim())
+            presenter.login(edtEmail.text.toString().trim(), edtPassword.text.toString().trim())
         }
         btnClearEmail.setOnClickListener {
             edtEmail.text.clear()
