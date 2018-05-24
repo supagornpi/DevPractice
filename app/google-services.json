@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "242162161488",
+    "firebase_url": "https://devpractice-201909.firebaseio.com",
+    "project_id": "devpractice-201909",
+    "storage_bucket": "devpractice-201909.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:242162161488:android:7157c4bfbd7ee402",
+        "android_client_info": {
+          "package_name": "com.supagorn.devpractice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "242162161488-4eb5uftbelclmql7dc7lnio82fobsqj7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0RgpqQiZdVh_H5DLHgmoamtaCyXcvyK0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
