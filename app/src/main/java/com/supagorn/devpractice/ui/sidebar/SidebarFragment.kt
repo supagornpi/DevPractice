@@ -12,6 +12,7 @@ import com.supagorn.devpractice.R
 import com.supagorn.devpractice.dialog.DialogAlert
 import com.supagorn.devpractice.firebase.UserManager
 import com.supagorn.devpractice.ui.login.LoginActivity
+import com.supagorn.devpractice.ui.register.RegisterActivity
 import com.supagorn.devpractice.utils.GlideLoader
 import kotlinx.android.synthetic.main.fragment_sidebar.*
 
@@ -52,6 +53,8 @@ class SidebarFragment : Fragment() {
         imgProfileImage.setOnClickListener {
             if (!UserManager.isLogin()) {
                 LoginActivity.start()
+            } else {
+                RegisterActivity.startEditMode()
             }
         }
     }

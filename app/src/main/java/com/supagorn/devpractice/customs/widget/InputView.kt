@@ -81,6 +81,10 @@ class InputView : LinearLayout {
         SpinnerUtils.setSpinner(context, spinner, list, hasHint)
     }
 
+    fun setSelectedPosition(position: Int) {
+        spinner.setSelection(position)
+    }
+
     fun getSelectedPosition(): Int {
         return spinner.selectedItemPosition
     }

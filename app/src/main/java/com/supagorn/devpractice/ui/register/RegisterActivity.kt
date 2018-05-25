@@ -2,6 +2,7 @@ package com.supagorn.devpractice.ui.register
 
 import android.content.Intent
 import android.text.InputType
+import android.view.View
 import android.widget.EditText
 import com.supagorn.devpractice.MainActivity
 import com.supagorn.devpractice.MyApplication
@@ -10,6 +11,7 @@ import com.supagorn.devpractice.customs.AbstractActivity
 import com.supagorn.devpractice.dialog.DialogAlert
 import com.supagorn.devpractice.enums.Gender
 import com.supagorn.devpractice.enums.RequireField
+import com.supagorn.devpractice.model.account.User
 import com.supagorn.devpractice.model.register.RegisterEntity
 import com.supagorn.devpractice.utils.DismissKeyboardListener
 import com.supagorn.devpractice.utils.KeyboardUtils
@@ -19,6 +21,7 @@ import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AbstractActivity(), RegisterContract.View {
 
+    private var isEditMode = false
     private val presenter: RegisterContract.Presenter = RegisterPresenter(this)
 
     companion object {
@@ -26,16 +29,38 @@ class RegisterActivity : AbstractActivity(), RegisterContract.View {
             val intent = Intent(MyApplication.instance, RegisterActivity::class.java)
             MyApplication.instance.startActivity(intent)
         }
+
+        fun startEditMode() {
+            val intent = Intent(MyApplication.instance, RegisterActivity::class.java)
+            intent.putExtra(RegisterActivity::class.java.simpleName, true)
+            MyApplication.instance.startActivity(intent)
+        }
     }
 
     override fun setLayoutView(): Int = R.layout.activity_register
 
     override fun setupView() {
-        setTitle(R.string.button_register)
+        isEditMode = intent.getBooleanExtra(RegisterActivity::class.java.simpleName, false)
+        setTitle(if (isEditMode) R.string.register_edit_mode else R.string.register)
+        inputPassword.visibility = if (isEditMode) View.GONE else View.VISIBLE
+        inputConfirmPassword.visibility = if (isEditMode) View.GONE else View.VISIBLE
         showBackButton()
         initInputType()
         bindAction()
 
+        if (isEditMode) {
+            presenter.getProfile()
+        }
+    }
+
+    override fun bindUserProfile(user: User) {
+        inputFirstName.editText.setText(user.firstName)
+        inputLastName.editText.setText(user.lastName)
+        inputEmail.editText.setText(user.email)
+        inputMobile.editText.setText(user.mobile)
+        if (user.gender != null) {
+            inputGender.setSelectedPosition(user.gender.ordinal)
+        }
     }
 
     override fun requireField(requireField: RequireField) {
@@ -84,6 +109,10 @@ class RegisterActivity : AbstractActivity(), RegisterContract.View {
         DialogAlert.show(this, R.string.dialog_register_failed)
     }
 
+    override fun updateProfileSuccess() {
+        finish()
+    }
+
     override fun error(message: String) {
         DialogAlert.show(this, message)
     }
@@ -94,7 +123,11 @@ class RegisterActivity : AbstractActivity(), RegisterContract.View {
 
         btnRegister.setOnClickListener {
             KeyboardUtils.dismissKeyboard(this)
-            presenter.register(getRegisterEntity())
+            if (isEditMode) {
+                presenter.editProfile(getRegisterEntity())
+            } else {
+                presenter.register(getRegisterEntity())
+            }
         }
     }
 
@@ -111,12 +144,6 @@ class RegisterActivity : AbstractActivity(), RegisterContract.View {
         inputMobile.setMaxLength(10)
         inputMobile.setTitleColor(R.color.color_red_dark)
         inputEmail.setTitleColor(R.color.color_red_dark)
-
-        inputFirstName.editText.setText("name")
-        inputLastName.editText.setText("last name")
-        inputEmail.editText.setText("email@gmail.com")
-        inputPassword.editText.setText("123456")
-        inputConfirmPassword.editText.setText("123456")
 
     }
 
