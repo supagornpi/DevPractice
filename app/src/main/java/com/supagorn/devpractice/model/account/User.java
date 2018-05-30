@@ -2,6 +2,7 @@ package com.supagorn.devpractice.model.account;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 import com.supagorn.devpractice.enums.Gender;
+import com.supagorn.devpractice.model.Upload;
 
 @IgnoreExtraProperties
 public class User {
@@ -11,6 +12,7 @@ public class User {
     public String lastName;
     public String mobile;
     public Gender gender;
+    public Upload image;
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
@@ -38,6 +40,11 @@ public class User {
 
     public User setGender(Gender gender) {
         this.gender = gender;
+        return this;
+    }
+
+    public User setImage(Upload image) {
+        this.image = image;
         return this;
     }
 }

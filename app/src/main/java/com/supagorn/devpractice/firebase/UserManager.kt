@@ -2,22 +2,19 @@ package com.supagorn.devpractice.firebase
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.supagorn.devpractice.model.Upload
 import com.supagorn.devpractice.model.account.User
 import com.supagorn.devpractice.model.register.RegisterEntity
 
 object UserManager {
 
-    var reference = FirebaseDatabase.getInstance().reference
+    const val STORAGE_PATH_PROFILE = "profiles/"
 
-    fun isLogin(): Boolean {
-        return FirebaseAuth.getInstance().currentUser != null
-    }
+    private val reference = FirebaseDatabase.getInstance().reference
+    val uid = FirebaseAuth.getInstance().currentUser!!.uid
+    val isLoggedIn = FirebaseAuth.getInstance().currentUser != null
 
-    fun getUid(): String {
-        return FirebaseAuth.getInstance().currentUser!!.uid
-    }
-
-    fun splitUsername(email: String): String {
+    fun createUsernameWithEmail(email: String): String {
         var username = email
         if (email.contains("@")) {
             username = email.split("@".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]
@@ -31,7 +28,7 @@ object UserManager {
 
     fun updateUserData(uid: String, entity: RegisterEntity) {
         val email = entity.email
-        val username = UserManager.splitUsername(email)
+        val username = UserManager.createUsernameWithEmail(email)
 
         val user = User(username, email)
                 .setFirstName(entity.firstName)
@@ -39,5 +36,9 @@ object UserManager {
                 .setMobile(entity.mobile)
                 .setGender(entity.gender)
         updateUserData(uid, user)
+    }
+
+    fun updateUserImage(upload: Upload) {
+        reference.child("user-images").child(uid).setValue(upload)
     }
 }

@@ -1,6 +1,8 @@
 package com.supagorn.devpractice.ui.register
 
+import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.text.InputType
 import android.view.View
 import android.widget.EditText
@@ -11,16 +13,18 @@ import com.supagorn.devpractice.customs.AbstractActivity
 import com.supagorn.devpractice.dialog.DialogAlert
 import com.supagorn.devpractice.enums.Gender
 import com.supagorn.devpractice.enums.RequireField
+import com.supagorn.devpractice.model.Upload
 import com.supagorn.devpractice.model.account.User
 import com.supagorn.devpractice.model.register.RegisterEntity
-import com.supagorn.devpractice.utils.DismissKeyboardListener
-import com.supagorn.devpractice.utils.KeyboardUtils
-import com.supagorn.devpractice.utils.ValidatorUtils
+import com.supagorn.devpractice.utils.*
 import kotlinx.android.synthetic.main.activity_register.*
+import java.io.File
 
 
 class RegisterActivity : AbstractActivity(), RegisterContract.View {
 
+    private val REQUEST_IMAGE_GALLERY = 1
+    private var imageUri: Uri? = null
     private var isEditMode = false
     private val presenter: RegisterContract.Presenter = RegisterPresenter(this)
 
@@ -48,8 +52,13 @@ class RegisterActivity : AbstractActivity(), RegisterContract.View {
         initInputType()
         bindAction()
 
+        //load image profile in circle
+        GlideLoader.loadImageCircle(
+                applicationContext,
+                R.mipmap.ic_launcher, ivProfileImage)
+
         if (isEditMode) {
-            presenter.getProfile()
+            presenter.fetchUserProfile()
         }
     }
 
@@ -61,6 +70,13 @@ class RegisterActivity : AbstractActivity(), RegisterContract.View {
         if (user.gender != null) {
             inputGender.setSelectedPosition(user.gender.ordinal)
         }
+    }
+
+    override fun bindUserImage(upload: Upload) {
+        //load image profile in circle
+        GlideLoader.loadImageCircle(
+                applicationContext,
+                upload.url, ivProfileImage)
     }
 
     override fun requireField(requireField: RequireField) {
@@ -121,6 +137,9 @@ class RegisterActivity : AbstractActivity(), RegisterContract.View {
         rootView.setOnTouchListener(DismissKeyboardListener(this))
         scrollView.setOnTouchListener(DismissKeyboardListener(this))
 
+        ivProfileImage.setOnClickListener {
+            openGalleryIntent()
+        }
         btnRegister.setOnClickListener {
             KeyboardUtils.dismissKeyboard(this)
             if (isEditMode) {
@@ -156,6 +175,39 @@ class RegisterActivity : AbstractActivity(), RegisterContract.View {
         entity.gender = Gender.parse(inputGender.getSelectedPosition())
         entity.password = inputPassword.input
         entity.confirmPassword = inputConfirmPassword.input
+
+        if (imageUri != null) {
+            val file = FileUtils.getResizedBitmap(this, File(FileUtils.getRealPathFromURI(this, imageUri)))
+            entity.imageUri = Uri.fromFile(file)
+        }
+
         return entity
+    }
+
+    private fun openGalleryIntent() {
+        IntentUtils.startIntentGallery(this, REQUEST_IMAGE_GALLERY)
+    }
+
+    private fun loadProfileUri(uri: Uri) {
+        GlideLoader.load(uri, ivProfileImage)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == PermissionUtils.PERMISSION_READ_EXTERNAL_STORAGE) {
+            if (PermissionUtils.isGrantAll(permissions)) {
+                openGalleryIntent()
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == REQUEST_IMAGE_GALLERY && data != null) {
+                loadProfileUri(data.data)
+                imageUri = data.data
+            }
+        }
     }
 }

@@ -1,10 +1,13 @@
 package com.supagorn.devpractice.model.register;
 
 
+import android.net.Uri;
+
 import com.supagorn.devpractice.enums.Gender;
 
 public class RegisterEntity {
 
+    private Uri imageUri;
     private String firstName;
     private String lastName;
     private String mobile;
@@ -12,6 +15,14 @@ public class RegisterEntity {
     private Gender gender;
     private String password;
     private String confirmPassword;
+
+    public Uri getImageUri() {
+        return imageUri;
+    }
+
+    public void setImageUri(Uri imageUri) {
+        this.imageUri = imageUri;
+    }
 
     public String getFirstName() {
         return firstName;

@@ -69,6 +69,12 @@ abstract class AbstractActivity : AppCompatActivity() {
         progressDialog.setCancelable(false)
     }
 
+    fun updateProgress(message: String) {
+        if (progressDialog.isShowing) {
+            progressDialog.setMessage(message)
+        }
+    }
+
     fun showProgressDialog() {
         if (!progressDialog.isShowing) {
             progressDialog.show()
@@ -80,5 +86,4 @@ abstract class AbstractActivity : AppCompatActivity() {
             progressDialog.dismiss()
         }
     }
-
 }

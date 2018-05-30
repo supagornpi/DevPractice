@@ -2,6 +2,7 @@ package com.supagorn.devpractice.ui.register
 
 import com.supagorn.devpractice.base.BaseView
 import com.supagorn.devpractice.enums.RequireField
+import com.supagorn.devpractice.model.Upload
 import com.supagorn.devpractice.model.account.User
 import com.supagorn.devpractice.model.register.RegisterEntity
 
@@ -11,11 +12,15 @@ interface RegisterContract {
 
         fun editProfile(entity: RegisterEntity)
 
-        fun getProfile()
+        fun fetchUserProfile()
+
+        fun fetchUserImage()
     }
 
     interface View : BaseView.Progress {
         fun bindUserProfile(user: User)
+
+        fun bindUserImage(upload: Upload)
 
         fun requireField(requireField: RequireField)
 
