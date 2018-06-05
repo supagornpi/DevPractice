@@ -8,12 +8,13 @@ import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.widget.DrawerLayout
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Gravity
 import android.view.MenuItem
+import com.supagorn.devpractice.constants.AppEventsConstants
 import com.supagorn.devpractice.customs.BaseActivity
 import com.supagorn.devpractice.customs.FragmentStateManager
+import com.supagorn.devpractice.singleton.AppEventLogger
 import com.supagorn.devpractice.ui.sidebar.SideMenu
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -109,6 +110,7 @@ class MainActivity : BaseActivity(), SideMenu {
     }
 
     override fun openSideMenu() {
+        AppEventLogger.logEvent(AppEventsConstants.EVENT_NAME_OPEN_SIDE_BAR)
         drawerLayout.openDrawer(Gravity.END)
     }
 

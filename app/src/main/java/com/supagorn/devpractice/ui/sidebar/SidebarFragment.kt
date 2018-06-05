@@ -66,7 +66,7 @@ class SidebarFragment : Fragment(), SidebarContract.View {
 
     private fun bindAction() {
         btnLogout.setOnClickListener {
-            DialogAlert.show(activity, R.string.dialog_logout, DialogInterface.OnClickListener { dialog, which ->
+            DialogAlert.show(activity!!, R.string.dialog_logout, DialogInterface.OnClickListener { dialog, which ->
                 FirebaseAuth.getInstance().signOut()
                 checkLogin()
             })

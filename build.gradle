@@ -3,6 +3,10 @@
 buildscript {
     ext.kotlin_version = '1.2.21'
     ext.firebaseLibraryVersion = '11.8.0'
+    ext.facebook_sdk_version = '4.33.0'
+
+    //config
+    ext.facebook_app_id = '222067765268845'
 
     repositories {
         google()

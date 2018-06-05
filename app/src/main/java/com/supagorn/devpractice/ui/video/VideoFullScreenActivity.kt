@@ -11,7 +11,9 @@ import android.widget.LinearLayout
 import com.google.android.youtube.player.YouTubePlayer
 import com.supagorn.devpractice.BuildConfig
 import com.supagorn.devpractice.R
+import com.supagorn.devpractice.constants.AppEventsConstants
 import com.supagorn.devpractice.customs.YouTubeFailureRecoveryActivity
+import com.supagorn.devpractice.singleton.AppEventLogger
 import com.supagorn.devpractice.utils.ResolutionUtils
 import com.supagorn.devpractice.utils.YoutubeLinkUtils
 import kotlinx.android.synthetic.main.activity_video_full_screen.*
@@ -27,6 +29,7 @@ class VideoFullScreenActivity : YouTubeFailureRecoveryActivity(), YouTubePlayer.
         private const val VIDEO_LINK = "https://youtu.be/YE7VzlLtp-4"
 
         fun start(context: Context) {
+            AppEventLogger.logEvent(AppEventsConstants.EVENT_NAME_VIEW_VIDEO)
             val intent = Intent(context, VideoFullScreenActivity::class.java)
             context.startActivity(intent)
         }

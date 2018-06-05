@@ -9,6 +9,7 @@ import android.widget.EditText
 import com.supagorn.devpractice.MainActivity
 import com.supagorn.devpractice.MyApplication
 import com.supagorn.devpractice.R
+import com.supagorn.devpractice.constants.AppEventsConstants
 import com.supagorn.devpractice.customs.AbstractActivity
 import com.supagorn.devpractice.dialog.DialogAlert
 import com.supagorn.devpractice.enums.Gender
@@ -16,6 +17,7 @@ import com.supagorn.devpractice.enums.RequireField
 import com.supagorn.devpractice.model.Upload
 import com.supagorn.devpractice.model.account.User
 import com.supagorn.devpractice.model.register.RegisterEntity
+import com.supagorn.devpractice.singleton.AppEventLogger
 import com.supagorn.devpractice.utils.*
 import kotlinx.android.synthetic.main.activity_register.*
 import java.io.File
@@ -30,11 +32,13 @@ class RegisterActivity : AbstractActivity(), RegisterContract.View {
 
     companion object {
         fun start() {
+            AppEventLogger.logEvent(AppEventsConstants.EVENT_NAME_VIEW_REGISTER)
             val intent = Intent(MyApplication.instance, RegisterActivity::class.java)
             MyApplication.instance.startActivity(intent)
         }
 
         fun startEditMode() {
+            AppEventLogger.logEvent(AppEventsConstants.EVENT_NAME_VIEW_EDIT_PROFILE)
             val intent = Intent(MyApplication.instance, RegisterActivity::class.java)
             intent.putExtra(RegisterActivity::class.java.simpleName, true)
             MyApplication.instance.startActivity(intent)
@@ -46,6 +50,8 @@ class RegisterActivity : AbstractActivity(), RegisterContract.View {
     override fun setupView() {
         isEditMode = intent.getBooleanExtra(RegisterActivity::class.java.simpleName, false)
         setTitle(if (isEditMode) R.string.register_edit_mode else R.string.register)
+        btnRegister.text = resources.getString(if (isEditMode) R.string.register_edit_mode else R.string.register)
+
         inputPassword.visibility = if (isEditMode) View.GONE else View.VISIBLE
         inputConfirmPassword.visibility = if (isEditMode) View.GONE else View.VISIBLE
         showBackButton()

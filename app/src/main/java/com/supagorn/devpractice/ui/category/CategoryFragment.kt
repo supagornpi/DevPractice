@@ -3,8 +3,10 @@ package com.supagorn.devpractice.ui.category
 import android.support.v7.widget.GridLayoutManager
 import android.widget.LinearLayout
 import com.supagorn.devpractice.R
+import com.supagorn.devpractice.constants.AppEventsConstants
 import com.supagorn.devpractice.customs.AbstractFragment
 import com.supagorn.devpractice.enums.Categories
+import com.supagorn.devpractice.singleton.AppEventLogger
 import com.supagorn.devpractice.ui.category.adapter.CategoryAdapter
 import kotlinx.android.synthetic.main.fragment_category.*
 
@@ -16,8 +18,8 @@ class CategoryFragment : AbstractFragment(), CategoryContract.View {
     override fun setLayoutView(): Int = R.layout.fragment_category
 
     override fun setupView() {
+        AppEventLogger.logEvent(AppEventsConstants.EVENT_NAME_VIEW_CUSTOMS)
         setTitle(R.string.title_customs)
-
         initRecyclerView()
         presenter.start()
     }

@@ -8,8 +8,10 @@ import android.widget.EditText
 import com.supagorn.devpractice.MainActivity
 import com.supagorn.devpractice.MyApplication
 import com.supagorn.devpractice.R
+import com.supagorn.devpractice.constants.AppEventsConstants
 import com.supagorn.devpractice.customs.AbstractActivity
 import com.supagorn.devpractice.dialog.DialogAlert
+import com.supagorn.devpractice.singleton.AppEventLogger
 import com.supagorn.devpractice.ui.register.RegisterActivity
 import com.supagorn.devpractice.utils.DismissKeyboardListener
 import com.supagorn.devpractice.utils.ValidatorUtils
@@ -22,6 +24,7 @@ class LoginActivity : AbstractActivity(), LoginContract.View {
 
     companion object {
         fun start() {
+            AppEventLogger.logEvent(AppEventsConstants.EVENT_NAME_VIEW_LOGIN)
             val intent = Intent(MyApplication.instance, LoginActivity::class.java)
             MyApplication.instance.startActivity(intent)
         }

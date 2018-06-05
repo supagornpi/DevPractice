@@ -6,7 +6,9 @@ import com.leocardz.link.preview.library.LinkPreviewCallback
 import com.leocardz.link.preview.library.SourceContent
 import com.leocardz.link.preview.library.TextCrawler
 import com.supagorn.devpractice.R
+import com.supagorn.devpractice.constants.AppEventsConstants
 import com.supagorn.devpractice.customs.AbstractFragment
+import com.supagorn.devpractice.singleton.AppEventLogger
 import com.supagorn.devpractice.ui.library.adapter.LibraryAdapter
 import com.supagorn.devpractice.ui.library.model.LinkPreviewEntity
 import kotlinx.android.synthetic.main.fragment_library.*
@@ -24,6 +26,7 @@ class LibraryFragment : AbstractFragment() {
     }
 
     override fun setupView() {
+        AppEventLogger.logEvent(AppEventsConstants.EVENT_NAME_VIEW_LIBRARY)
         setTitle(R.string.title_library)
         initRecyclerView()
     }

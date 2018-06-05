@@ -4,8 +4,10 @@ import android.view.View
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.supagorn.devpractice.R
+import com.supagorn.devpractice.constants.AppEventsConstants
 import com.supagorn.devpractice.customs.AbstractFragment
 import com.supagorn.devpractice.model.SamplePagerEntity
+import com.supagorn.devpractice.singleton.AppEventLogger
 import com.supagorn.devpractice.ui.home.pager.SamplePagerView
 import com.supagorn.devpractice.ui.home.product.ProductsActivity
 import com.supagorn.devpractice.utils.JsonUtils
@@ -24,6 +26,7 @@ class HomeFragment : AbstractFragment() {
     }
 
     override fun setupView() {
+        AppEventLogger.logEvent(AppEventsConstants.EVENT_NAME_VIEW_HOME)
         bindUI(view!!)
         setTitle(R.string.title_home)
         showUserToggleWithAction()
@@ -36,12 +39,12 @@ class HomeFragment : AbstractFragment() {
 
     private fun bindAction() {
         btnAllProduct.setOnClickListener {
-            ProductsActivity.start(activity)
+            ProductsActivity.start()
         }
     }
 
     private fun setSampleViewPager() {
-        val samplePagerView = SamplePagerView(activity)
+        val samplePagerView = SamplePagerView(activity!!)
         //get json from asset
         val jsonString = JsonUtils().loadJSONFromAsset(activity, "json/banner.json")
         val samplePagerEntities = Gson().fromJson<ArrayList<SamplePagerEntity>>(jsonString, object : TypeToken<ArrayList<SamplePagerEntity>>() {
