@@ -68,7 +68,7 @@ class RegisterPresenter constructor(private var view: RegisterContract.View) : R
 
             override fun onDataChange(dataSnapshot: DataSnapshot?) {
                 val userImage = dataSnapshot?.getValue(Upload::class.java)
-                if (userImage != null) {
+                if (userImage?.url != null) {
                     view.bindUserImage(userImage)
                 }
             }

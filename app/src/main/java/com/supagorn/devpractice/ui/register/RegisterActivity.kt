@@ -59,6 +59,7 @@ class RegisterActivity : AbstractActivity(), RegisterContract.View {
 
         if (isEditMode) {
             presenter.fetchUserProfile()
+            presenter.fetchUserImage()
         }
     }
 

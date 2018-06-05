@@ -11,8 +11,8 @@ object UserManager {
     const val STORAGE_PATH_PROFILE = "profiles/"
 
     private val reference = FirebaseDatabase.getInstance().reference
-    val uid = FirebaseAuth.getInstance().currentUser!!.uid
-    val isLoggedIn = FirebaseAuth.getInstance().currentUser != null
+    val uid get() = if (FirebaseAuth.getInstance().currentUser != null) FirebaseAuth.getInstance().currentUser!!.uid else ""
+    val isLoggedIn get() = FirebaseAuth.getInstance().currentUser != null
 
     fun createUsernameWithEmail(email: String): String {
         var username = email

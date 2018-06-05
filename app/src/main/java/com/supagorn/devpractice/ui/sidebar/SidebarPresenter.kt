@@ -36,7 +36,7 @@ class SidebarPresenter constructor(private var view: SidebarContract.View) : Sid
                 view.bindUserProfile(user!!)
             }
         }
-        mDatabase.child("users").child(UserManager.getCurrentUid()).addValueEventListener(userProfileEventListener!!)
+        mDatabase.child("users").child(UserManager.uid).addValueEventListener(userProfileEventListener!!)
 
     }
 
@@ -48,12 +48,12 @@ class SidebarPresenter constructor(private var view: SidebarContract.View) : Sid
 
             override fun onDataChange(dataSnapshot: DataSnapshot?) {
                 val userImage = dataSnapshot?.getValue(Upload::class.java)
-                if (userImage != null) {
+                if (userImage?.url != null) {
                     view.bindUserImage(userImage)
                 }
 
             }
         }
-        mDatabase.child("user-images").child(UserManager.getCurrentUid()).addValueEventListener(userImageEventListener)
+        mDatabase.child("user-images").child(UserManager.uid).addValueEventListener(userImageEventListener)
     }
 }
