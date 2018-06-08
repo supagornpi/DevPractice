@@ -1,5 +1,6 @@
 package com.supagorn.devpractice.customs
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -11,12 +12,15 @@ import kotlinx.android.synthetic.main.layout_action_bar.*
 
 abstract class AbstractActivity : AppCompatActivity() {
 
+    protected lateinit var progressDialog: ProgressDialog
+
     protected abstract fun setLayoutView(): Int
     protected abstract fun setupView()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(setLayoutView())
+        setProgressDialog()
         setupView()
     }
 
@@ -56,6 +60,30 @@ abstract class AbstractActivity : AppCompatActivity() {
             btnRight.setImageResource(icon)
             btnRight.visibility = View.VISIBLE
             btnRight.setOnClickListener(onClickListener)
+        }
+    }
+
+    private fun setProgressDialog() {
+        progressDialog = ProgressDialog(this)
+        progressDialog.setMessage("Now Loading...")
+        progressDialog.setCancelable(false)
+    }
+
+    fun updateProgress(message: String) {
+        if (progressDialog.isShowing) {
+            progressDialog.setMessage(message)
+        }
+    }
+
+    fun showProgressDialog() {
+        if (!progressDialog.isShowing) {
+            progressDialog.show()
+        }
+    }
+
+    fun hideProgressDialog() {
+        if (progressDialog.isShowing) {
+            progressDialog.dismiss()
         }
     }
 }

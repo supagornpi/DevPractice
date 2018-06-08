@@ -1,33 +1,33 @@
 package com.supagorn.devpractice.ui.home.product
 
-import android.content.Context
 import android.content.Intent
 import android.os.Handler
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import com.supagorn.devpractice.MyApplication
 import com.supagorn.devpractice.R
 import com.supagorn.devpractice.customs.AbstractActivity
+import com.supagorn.devpractice.customs.adapter.kotlin.CustomAdapter
+import com.supagorn.devpractice.customs.listener.ScrollLoadMoreListener
+import com.supagorn.devpractice.customs.view.ProductView
 import com.supagorn.devpractice.model.home.ProductEntity
 import com.supagorn.devpractice.retrofit.ServiceFactory
 import com.supagorn.devpractice.service.ProductService
-import com.supagorn.devpractice.ui.home.product.adapter.ProductAdapter
-import com.supagorn.devpractice.utils.ScrollLoadMoreListener
 import kotlinx.android.synthetic.main.view_recyclerview_with_progress.*
 
-class ProductsActivity : AbstractActivity(), ProductContract.View, ScrollLoadMoreListener.LoadMoreListener {
+class ProductsActivity : AbstractActivity(), ProductContract.View {
 
-    private var adapter = ProductAdapter()
+    private lateinit var adapter: CustomAdapter<ProductEntity>
     private val presenter: ProductContract.Presenter
-    private lateinit var onScrollLoadMoreListener: ScrollLoadMoreListener
 
     init {
         presenter = ProductPresenter(this, ServiceFactory.create(ProductService::class.java))
     }
 
     companion object {
-        fun start(context: Context) {
-            val intent = Intent(context, ProductsActivity::class.java)
-            context.startActivity(intent)
+        fun start() {
+            val intent = Intent(MyApplication.instance, ProductsActivity::class.java)
+            MyApplication.instance.startActivity(intent)
         }
     }
 
@@ -48,26 +48,30 @@ class ProductsActivity : AbstractActivity(), ProductContract.View, ScrollLoadMor
     }
 
     private fun initRecyclerView() {
-        recyclerView.layoutManager = LinearLayoutManager(applicationContext)
-        recyclerView.adapter = adapter
-        onScrollLoadMoreListener = ScrollLoadMoreListener(this)
-        recyclerView.addOnScrollListener(onScrollLoadMoreListener)
+        adapter = CustomAdapter<ProductEntity>(object : CustomAdapter.OnBindViewListener {
+            override fun <T> onBindViewHolder(item: T, itemView: View, viewType: Int, position: Int) {
+                val product = item as ProductEntity
+                (itemView as ProductView).setProduct(product)
+            }
 
-        adapter.setOnItemClickListener(object : ProductAdapter.OnItemClickListener {
-            override fun onItemClicked(product: ProductEntity) {
-//                ProductDetailActivity.start(context, product)
+            override fun onCreateView(): View {
+                return ProductView(this@ProductsActivity)
+            }
+        }).setOnLoadMoreListener(recyclerView, ProductEntity(), object : ScrollLoadMoreListener.OnLoadMoreListener {
+            override fun onLoadMore() {
+                if (adapter.itemCount > 0) {
+                    Handler().postDelayed({
+                        presenter.loadMore()
+                    }, 500)
+                }
             }
         })
+
+        recyclerView.layoutManager = LinearLayoutManager(applicationContext)
+        recyclerView.adapter = adapter
     }
 
     private fun bindAction() {
-
-    }
-
-    private fun setLoadMoreData() {
-        Handler().postDelayed(Runnable {
-            presenter.loadMore()
-        }, 1000)
 
     }
 
@@ -88,27 +92,14 @@ class ProductsActivity : AbstractActivity(), ProductContract.View, ScrollLoadMor
     }
 
     override fun showProducts(products: MutableList<ProductEntity>) {
-        if (products.size < 10) {
-            onScrollLoadMoreListener.isLoadingMore = true
-            adapter.setProducts(products, false)
-        } else {
-            onScrollLoadMoreListener.isLoadingMore = false
-            adapter.setProducts(products, true)
-        }
+        adapter.setListItem(products)
     }
 
     override fun addProducts(products: List<ProductEntity>) {
-        onScrollLoadMoreListener.isLoadingMore = false
-        adapter.addProducts(products)
+        adapter.addListItem(products)
     }
 
     override fun showNotFoundLoadMore() {
-        adapter.clearLoadMore()
-    }
-
-    override fun onLoadMore() {
-        if (adapter.itemCount > 0) {
-            setLoadMoreData()
-        }
+        adapter.hideLoadMore()
     }
 }

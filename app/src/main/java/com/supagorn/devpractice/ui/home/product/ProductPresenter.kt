@@ -30,7 +30,7 @@ class ProductPresenter constructor(val view: ProductContract.View,
     }
 
     private fun getPromotions() {
-        val disposable = service.getProducts(1, pageIndex)
+        val disposable = service.getProducts(0, pageIndex)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe({

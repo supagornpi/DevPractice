@@ -7,9 +7,21 @@
     <string name="title_setting">Setting</string>
 
     <string name="error_not_found">Not Found</string>
+    <string name="error_player" translatable="false">There was an error initializing the YouTubePlayer (%1$s)</string>
+    <string name="error_email_invalid">Email is invalid</string>
+    <string name="error_password_invalid">Password must be at least 6 characters.</string>
+    <string name="error_password_not_match">Password not match</string>
+    <string name="error_mobile_invalid">Mobile number is invalid</string>
+    <string name="error_id_card_invalid">ID card number is invalid</string>
+    <string name="error_please_fill">Please fill</string>
 
     <string name="price_format" translatable="false">฿%,.0f</string>
     <string name="price_percentage" translatable="false">%,.0f%%</string>
+
+    <!--Button-->
+    <string name="button_register">Register</string>
+    <string name="button_login">Login</string>
+    <string name="button_logout">Logout</string>
 
     <!-- Setting -->
     <string name="setting_change_language">Change Language</string>
@@ -20,9 +32,38 @@
 
     <!--Dialog-->
     <string name="dialog_select_language">Select language</string>
+    <string name="dialog_login_failed">User not found.</string>
+    <string name="dialog_register_failed">Register failed.</string>
+    <string name="dialog_logout">Do you want to Logout?</string>
 
     <!-- language -->
     <string name="language_thai" translatable="false">ไทย</string>
     <string name="language_english" translatable="false">English</string>
+
+    <!--Category-->
+    <string name="category_video">Video</string>
+
+    <!--Register-->
+    <string name="register">Register</string>
+    <string name="register_edit_mode">Edit profile</string>
+    <string name="register_first_name">First name</string>
+    <string name="register_last_name">Last name</string>
+    <string name="register_mobile">Mobile</string>
+    <string name="register_email">Email</string>
+    <string name="register_identify_card">ID card</string>
+    <string name="register_gender">Gender</string>
+    <string name="register_password">Password</string>
+    <string name="register_confirm_password">Confirm password</string>
+    <string name="register_remark">Remark ..</string>
+    <string-array name="gender_list">
+        <item>Your gender</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <!--Login-->
+    <string name="login_title">Login</string>
+    <string name="login_email">Email</string>
+    <string name="login_password">Password</string>
 
 </resources>

@@ -15,6 +15,8 @@ android {
         renderscriptSupportModeEnabled true
 
         buildConfigField "String", "SERVER_BASE", '"http://203.154.45.108/webservice/api/"'
+        buildConfigField "String", "GOOGLE_API_KEY", '"AIzaSyC5BAwCIjTPSi2_wI3r0xIeqRGuM6LhecM"'
+        resValue "string", "facebook_app_id", "\"$facebook_app_id\""
 
     }
     buildTypes {
@@ -37,9 +39,12 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'    //retrofit
     implementation 'com.github.bumptech.glide:glide:4.0.0'          //Glide
     implementation 'org.parceler:parceler-api:1.1.9'                //Parceler
+    implementation 'com.google.firebase:firebase-storage:11.8.0'
+    implementation 'com.google.firebase:firebase-auth:11.8.0'
     annotationProcessor 'org.parceler:parceler:1.1.9'               //Parceler
     implementation 'com.github.mmin18:realtimeblurview:1.1.0'       //Real time blur view
-    implementation 'org.jsoup:jsoup:1.8.3'                          // required for leocardz link preview
+    implementation 'org.jsoup:jsoup:1.8.3'
+    // required for leocardz link preview
     implementation 'com.leocardz:link-preview:2.0.0@aar'            //leocardz link preview
     implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'         //place holder like Facebook
     implementation 'com.android.support:customtabs:26.1.0'          //chrome custom tabs
@@ -49,9 +54,17 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'        //retrofit
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'       //rx java
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'               //rx java
+    //fire base
+    implementation "com.google.firebase:firebase-database:$firebaseLibraryVersion"
+    implementation "com.google.firebase:firebase-auth:$firebaseLibraryVersion"
+    implementation "com.google.firebase:firebase-storage:$firebaseLibraryVersion"
+    //facebook sdk
+    implementation "com.facebook.android:facebook-android-sdk:$facebook_sdk_version"
 
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }
+
+apply plugin: 'com.google.gms.google-services'

@@ -1,18 +1,20 @@
 package com.supagorn.devpractice
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.widget.DrawerLayout
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Gravity
 import android.view.MenuItem
+import com.supagorn.devpractice.constants.AppEventsConstants
 import com.supagorn.devpractice.customs.BaseActivity
 import com.supagorn.devpractice.customs.FragmentStateManager
+import com.supagorn.devpractice.singleton.AppEventLogger
 import com.supagorn.devpractice.ui.sidebar.SideMenu
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -21,6 +23,12 @@ class MainActivity : BaseActivity(), SideMenu {
     companion object {
         @SuppressLint("StaticFieldLeak")
         var fragmentStateManager: FragmentStateManager? = null
+
+        fun start() {
+            val intent = Intent(MyApplication.instance, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            MyApplication.instance.startActivity(intent)
+        }
     }
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -102,6 +110,7 @@ class MainActivity : BaseActivity(), SideMenu {
     }
 
     override fun openSideMenu() {
+        AppEventLogger.logEvent(AppEventsConstants.EVENT_NAME_OPEN_SIDE_BAR)
         drawerLayout.openDrawer(Gravity.END)
     }
 

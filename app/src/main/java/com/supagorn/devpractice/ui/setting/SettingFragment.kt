@@ -2,8 +2,10 @@ package com.supagorn.devpractice.ui.setting
 
 import android.support.v7.widget.LinearLayoutManager
 import com.supagorn.devpractice.R
+import com.supagorn.devpractice.constants.AppEventsConstants
 import com.supagorn.devpractice.customs.AbstractFragment
 import com.supagorn.devpractice.dialog.DialogChangeLanguage
+import com.supagorn.devpractice.singleton.AppEventLogger
 import com.supagorn.devpractice.ui.setting.adapter.SettingAdapter
 import kotlinx.android.synthetic.main.fragment_setting.*
 
@@ -15,6 +17,7 @@ class SettingFragment : AbstractFragment(), SettingContract.View {
     override fun setLayoutView(): Int = R.layout.fragment_setting
 
     override fun setupView() {
+        AppEventLogger.logEvent(AppEventsConstants.EVENT_NAME_VIEW_SETTING)
         setTitle(R.string.title_setting)
         presenter = SettingPresenter(this)
         initRecyclerView()
@@ -29,9 +32,9 @@ class SettingFragment : AbstractFragment(), SettingContract.View {
             override fun onItemClicked(setting: Settings) {
                 when (setting) {
                     Settings.ChangeLanguage -> {
-                        DialogChangeLanguage.alert(activity, object : DialogChangeLanguage.OnSelectedListener {
+                        DialogChangeLanguage.alert(activity!!, object : DialogChangeLanguage.OnSelectedListener {
                             override fun onSelected() {
-                                activity.recreate()
+                                activity?.recreate()
                             }
                         })
                     }
