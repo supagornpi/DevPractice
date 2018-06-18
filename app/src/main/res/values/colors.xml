@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimaryLight">#50597b</color>
-    <color name="colorPrimary">#394264</color>
-    <color name="colorPrimaryDark">#1f253d</color>
-    <color name="colorAccent">#11a8ab</color>
+    <color name="colorPrimaryLight">#fafafa</color>
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#ffffff</color>
+    <color name="colorAccent">#a196af</color>
 
-    <color name="color_red">#e64c65</color>
+    <color name="color_red">#e9235a</color>
     <color name="color_blue">#4fc4f6</color>
     <color name="color_yellow">#fcb150</color>
 
     <color name="color_white">#ffffff</color>
     <color name="color_gray_light">#f2f2f2</color>
-    <color name="color_gray">#bebebe</color>
+    <color name="color_gray">#a196af</color>
     <color name="color_black">#282828</color>
     <color name="color_red_dark">#d9001d</color>
+
+    <!--Text color-->
+    <color name="color_theme_dark">#2b1642</color>
+    <color name="color_theme_light">#a196af</color>
+    <color name="color_theme_accent">#e9235a</color>
 
     <!-- Shimmer place holder -->
     <color name="placeholder_bg">#dddddd</color>
@@ -22,6 +27,6 @@
     <color name="chef">#777</color>
     <color name="timestamp">#777</color>
 
-    <color name="color_line">#ededed</color>
+    <color name="color_line">#d0c8da</color>
 
 </resources>

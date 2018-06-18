@@ -19,7 +19,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="@color/color_white"
+            android:textColor="@color/color_theme_dark"
             android:textSize="@dimen/text_small"
             tools:text="title" />
 

@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/shimmerViewContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/padding_small"
+    android:layout_marginStart="@dimen/padding_small"
+    android:layout_marginTop="@dimen/padding_small"
     android:background="@color/colorPrimaryLight"
-    android:orientation="vertical">
+    android:elevation="2dp"
+    android:orientation="vertical"
+    card_view:cardCornerRadius="@dimen/corner_small">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,7 +27,7 @@
             android:layout_marginBottom="@dimen/padding_small"
             android:ellipsize="end"
             android:maxLines="2"
-            android:textColor="@color/color_white"
+            android:textColor="@color/color_theme_dark"
             android:textSize="@dimen/text_small"
             android:textStyle="bold"
             tools:text="title" />
@@ -45,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="3"
-                    android:textColor="@color/color_gray"
+                    android:textColor="@color/color_theme_light"
                     android:textSize="@dimen/text_mini"
                     tools:text="description" />
 
@@ -55,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:textColor="@color/color_white"
+                    android:textColor="@color/color_theme_light"
                     android:textSize="@dimen/text_nmini"
                     tools:text="link" />
             </LinearLayout>
@@ -74,4 +80,4 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/line_small"
         android:background="@color/colorPrimary" />
-</LinearLayout>
+</android.support.v7.widget.CardView>

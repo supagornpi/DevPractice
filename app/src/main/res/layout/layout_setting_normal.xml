@@ -19,14 +19,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="@color/color_white"
+            android:textColor="@color/color_theme_dark"
             android:textSize="@dimen/text_small"
             tools:text="title" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_next" />
+            android:src="@drawable/ic_next"
+            android:tint="@color/color_theme_light" />
     </LinearLayout>
 
     <View

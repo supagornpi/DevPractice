@@ -28,10 +28,11 @@
             android:layout_height="wrap_content"
             android:background="?selectableItemBackground"
             android:drawableEnd="@drawable/ic_next"
+            android:drawableTint="@color/color_theme_dark"
             android:gravity="start|center_vertical"
             android:padding="@dimen/padding_small"
             android:text="All Product"
-            android:textColor="@color/color_white"
+            android:textColor="@color/color_theme_dark"
             android:textSize="@dimen/text_small" />
 
     </LinearLayout>
