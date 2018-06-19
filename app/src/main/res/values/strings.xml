@@ -18,10 +18,19 @@
     <string name="price_format" translatable="false">฿%,.0f</string>
     <string name="price_percentage" translatable="false">%,.0f%%</string>
 
+    <!--Title-->
+    <string name="title_new_post">สร้างโพสต์</string>
+
     <!--Button-->
     <string name="button_register">Register</string>
     <string name="button_login">Login</string>
     <string name="button_logout">Logout</string>
+
+    <!--Post-->
+    <string name="post_like">ถูกใจ %,d คน</string>
+    <string name="post_comment">ดูความเห็นทั้ง %,d รายการ</string>
+    <string name="post_hint">คุณกำลังคิดอะไรอยู่</string>
+    <string name="post_shared">แชร์</string>
 
     <!-- Setting -->
     <string name="setting_change_language">Change Language</string>

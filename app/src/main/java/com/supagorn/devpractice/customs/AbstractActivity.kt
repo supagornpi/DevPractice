@@ -47,6 +47,14 @@ abstract class AbstractActivity : AppCompatActivity() {
         }
     }
 
+    fun setMenuRightText(textId: Int) {
+        tvRightMenu.text = applicationContext.getString(textId)
+    }
+
+    fun setOnclickMenuRight(onClickListener: View.OnClickListener) {
+        tvRightMenu.setOnClickListener(onClickListener)
+    }
+
     fun setButtonLeft(icon: Int, onClickListener: View.OnClickListener) {
         if (btnIconLeft != null) {
             btnIconLeft.setImageResource(icon)

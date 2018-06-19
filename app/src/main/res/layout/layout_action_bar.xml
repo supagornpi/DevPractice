@@ -30,19 +30,35 @@
             android:textSize="@dimen/text_large"
             android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/btnRight"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/padding_mini"
-            android:background="?selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:focusable="true"
-            android:padding="@dimen/padding_small"
-            android:tint="@color/color_theme_light"
-            android:visibility="invisible"
-            tools:visibility="visible" />
+            android:layout_marginEnd="@dimen/padding_mini">
+
+            <ImageView
+                android:id="@+id/btnRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="@dimen/padding_small"
+                android:tint="@color/color_theme_light"
+                android:visibility="invisible"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/tvRightMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?selectableItemBackgroundBorderless"
+                android:padding="@dimen/padding_small"
+                android:textColor="@color/color_theme_light"
+                android:textSize="@dimen/text_mini"
+                tools:text="แชร์" />
+        </RelativeLayout>
+
     </RelativeLayout>
 </layout>

@@ -72,7 +72,7 @@ class LoginActivity : AbstractActivity(), LoginContract.View {
             edtPassword.text.clear()
         }
         btnRegister.setOnClickListener {
-            //go to register
+            //go to post
             RegisterActivity.start()
         }
 

@@ -6,7 +6,7 @@ import com.supagorn.devpractice.model.account.User
 
 interface SidebarContract {
     interface Presenter : BasePresenter {
-
+        fun fetchUserImage()
     }
 
     interface View {

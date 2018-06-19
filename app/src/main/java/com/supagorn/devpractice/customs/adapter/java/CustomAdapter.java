@@ -100,13 +100,17 @@ public class CustomAdapter<T> extends RecyclerView.Adapter<CustomAdapter<T>.View
     }
 
     public void setListItem(List<T> list) {
-        this.onScrollLoadMoreListener.setHasLoadingMore(list.size() == this.pageSize);
+        if (this.onScrollLoadMoreListener != null) {
+            this.onScrollLoadMoreListener.setHasLoadingMore(list.size() == this.pageSize);
+        }
         this.list = list;
         notifyDataSetChanged();
     }
 
     public void addListItem(List<T> list) {
-        this.onScrollLoadMoreListener.setHasLoadingMore(list.size() == this.pageSize);
+        if (this.onScrollLoadMoreListener != null) {
+            this.onScrollLoadMoreListener.setHasLoadingMore(list.size() == this.pageSize);
+        }
         if (isLoadMore) {
             hideLoadMore();
         }

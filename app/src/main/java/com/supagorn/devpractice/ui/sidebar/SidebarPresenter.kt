@@ -40,7 +40,7 @@ class SidebarPresenter constructor(private var view: SidebarContract.View) : Sid
 
     }
 
-    private fun fetchUserImage() {
+    override fun fetchUserImage() {
         userImageEventListener = object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError?) {
 

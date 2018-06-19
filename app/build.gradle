@@ -60,6 +60,8 @@ dependencies {
     implementation "com.google.firebase:firebase-database:$firebaseLibraryVersion"
     implementation "com.google.firebase:firebase-auth:$firebaseLibraryVersion"
     implementation "com.google.firebase:firebase-storage:$firebaseLibraryVersion"
+    implementation 'com.firebaseui:firebase-ui-database:3.2.2'
+
     //facebook sdk
     implementation "com.facebook.android:facebook-android-sdk:$facebook_sdk_version"
     //bottom navigation
