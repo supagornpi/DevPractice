@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.view.View
-import com.supagorn.devpractice.MainActivity
 import com.supagorn.devpractice.MyApplication
 import com.supagorn.devpractice.R
 import com.supagorn.devpractice.constants.AppEventsConstants
@@ -48,15 +47,16 @@ class NewPostActivity : AbstractActivity(), NewPostContract.View {
     }
 
     override fun requireField() {
-
+        edtBody.error = "ไม่สามารถแชร์ค่าว่างได้"
+        edtBody.requestFocus()
     }
 
     override fun postSuccess() {
-        MainActivity.start()
+        finish()
     }
 
     override fun postFailed() {
-        DialogAlert.show(this, R.string.dialog_register_failed)
+        DialogAlert.show(this, "Error: could not fetch user.")
     }
 
     override fun error(message: String) {
@@ -69,7 +69,7 @@ class NewPostActivity : AbstractActivity(), NewPostContract.View {
 
         setOnclickMenuRight(View.OnClickListener {
             KeyboardUtils.dismissKeyboard(this)
-            presenter.post(edtBody.text.toString().trim())
+            presenter.submitPost(edtBody.text.toString().trim())
         })
 
 //        ivProfileImage.setOnClickListener {

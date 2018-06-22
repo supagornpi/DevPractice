@@ -8,13 +8,12 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
-import com.supagorn.devpractice.enums.RequireField
 import com.supagorn.devpractice.firebase.UserManager
 import com.supagorn.devpractice.firebase.UserManager.STORAGE_PATH_PROFILE
 import com.supagorn.devpractice.model.Upload
 import com.supagorn.devpractice.model.account.User
-import com.supagorn.devpractice.model.register.RegisterEntity
-import com.supagorn.devpractice.utils.ValidatorUtils
+import com.supagorn.devpractice.model.home.Post
+import java.util.*
 
 
 class NewPostPresenter constructor(private var view: NewPostContract.View) : NewPostContract.Presenter {
@@ -23,13 +22,32 @@ class NewPostPresenter constructor(private var view: NewPostContract.View) : New
     private val mDatabase = FirebaseDatabase.getInstance().reference
     val storageReference = FirebaseStorage.getInstance().reference
 
-    override fun post(body: String?) {
-        if (validate(body)) {
-            view.showProgressDialog()
+    override fun submitPost(body: String) {
+        val userId = UserManager.uid
 
+        if (validate(body)) {
+            view.hideProgressDialog()
+            // Disable button so there are no multi-posts
+            mDatabase.child("users").child(userId).addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    view.hideProgressDialog()
+                    val user = dataSnapshot.getValue(User::class.java)
+                    if (user == null) {
+                        view.postFailed()
+                    } else {
+                        writeNewPost(userId, user.username, body)
+                    }
+                    view.postSuccess()
+//                    finish()
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    view.hideProgressDialog()
+                    view.postFailed()
+                }
+            })
         }
     }
-
 
     private fun validate(body: String?): Boolean {
         var isValid = false
@@ -40,6 +58,20 @@ class NewPostPresenter constructor(private var view: NewPostContract.View) : New
             isValid = true
         }
         return isValid
+    }
+
+    private fun writeNewPost(userId: String, username: String, body: String) {
+        // Create new submitPost at /user-posts/$userid/$postid
+        // and at /posts/$postid simultaneously
+        val key = mDatabase.child("posts").push().key
+        val post = Post(userId, username, body)
+        val postValues = post.toMap()
+
+        val childUpdates = HashMap<String, Any>()
+        childUpdates["/posts/$key"] = postValues
+        childUpdates["/user-posts/$userId/$key"] = postValues
+
+        mDatabase.updateChildren(childUpdates)
     }
 
     private fun uploadFile(uri: Uri, username: String) {

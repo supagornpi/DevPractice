@@ -60,7 +60,7 @@ class HomeFragment : AbstractFragment(), SidebarContract.View{
     }
 
     private fun initRecyclerView() {
-        val postsQuery = mDatabase.child("posts").limitToFirst(5)
+        val postsQuery = mDatabase.child("posts")
 
         // Set up Layout Manager, reverse layout
         val mManager = LinearLayoutManager(context)

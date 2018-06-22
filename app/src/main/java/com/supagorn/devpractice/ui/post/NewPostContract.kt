@@ -8,7 +8,7 @@ import com.supagorn.devpractice.model.register.RegisterEntity
 
 interface NewPostContract {
     interface Presenter {
-        fun post(body: String?)
+        fun submitPost(body: String)
 
     }
 

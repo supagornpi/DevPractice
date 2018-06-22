@@ -38,7 +38,9 @@ class SidebarFragment : Fragment(), SidebarContract.View {
     }
 
     override fun bindUserProfile(user: User) {
-        tvUsername.text = user.firstName + " " + user.lastName
+        if (isVisible) {
+            tvUsername.text = user.firstName + " " + user.lastName
+        }
     }
 
     override fun bindUserImage(upload: Upload) {

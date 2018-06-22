@@ -2,6 +2,7 @@ package com.supagorn.devpractice.model.home;
 
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
+import com.google.firebase.database.ServerValue;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,9 +11,8 @@ import java.util.Map;
 public class Post {
     public String uid;
     public String author;
-    public String title;
     public String body;
-    public String timestamp;
+    public long timestamp;
     public int likeCount = 0;
     public int commentCount = 0;
     public Map<String, Boolean> likes = new HashMap<>();
@@ -21,10 +21,9 @@ public class Post {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)
     }
 
-    public Post(String uid, String author, String title, String body) {
+    public Post(String uid, String author, String body) {
         this.uid = uid;
         this.author = author;
-        this.title = title;
         this.body = body;
     }
 
@@ -33,9 +32,8 @@ public class Post {
         HashMap<String, Object> result = new HashMap<>();
         result.put("uid", uid);
         result.put("author", author);
-        result.put("title", title);
         result.put("body", body);
-        result.put("timestamp", timestamp);
+        result.put("timestamp", ServerValue.TIMESTAMP);
         result.put("likeCount", likeCount);
         result.put("commentCount", commentCount);
         result.put("likes", likes);

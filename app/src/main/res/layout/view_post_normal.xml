@@ -65,7 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_theme_light"
-                android:textSize="@dimen/text_small"
+                android:textSize="@dimen/text_nmini"
                 tools:text="5m" />
 
         </LinearLayout>
