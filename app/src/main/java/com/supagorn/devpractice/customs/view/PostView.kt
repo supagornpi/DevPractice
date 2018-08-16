@@ -65,7 +65,7 @@ class PostView : LinearLayout {
     private fun updateProfile(uid: String, post: Post) {
         //update profile
         if (post.name.isNullOrEmpty()) {
-            UserManager.instance!!.getProfile(uid, object : UserManager.OnEventListener {
+            UserManager.instance.getProfile(uid, object : UserManager.OnEventListener {
                 override fun <T> onDataChange(model: T) {
                     //null check
                     if (model == null) {
@@ -87,7 +87,7 @@ class PostView : LinearLayout {
         //update profile
         if (post.imageUrl.isNullOrEmpty()) {
             //update user image
-            UserManager.instance!!.getImage(uid, object : UserManager.OnEventListener {
+            UserManager.instance.getImage(uid, object : UserManager.OnEventListener {
                 override fun <T> onDataChange(model: T) {
                     //null check
                     if (model == null) {

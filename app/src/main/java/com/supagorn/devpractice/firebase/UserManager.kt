@@ -11,11 +11,12 @@ class UserManager {
     private var userProfileEventListener: ValueEventListener? = null
     private var userImageEventListener: ValueEventListener? = null
 
+    private object Holder {
+        val INSTANCE = UserManager()
+    }
+
     companion object {
-        @Volatile
-        var instance: UserManager? = synchronized(this) {
-            UserManager().also { instance = it }
-        }
+        val instance: UserManager by lazy { Holder.INSTANCE }
 
         private val mDatabase = FirebaseDatabase.getInstance().reference
 

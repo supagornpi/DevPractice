@@ -110,12 +110,6 @@ class HomeFragment : AbstractFragment(), SidebarContract.View{
         mFirebaseAdapter.stopListening()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        UserManager.instance!!.removeListener()
-    }
-
-
     override fun bindUserProfile(user: User) {
 
     }

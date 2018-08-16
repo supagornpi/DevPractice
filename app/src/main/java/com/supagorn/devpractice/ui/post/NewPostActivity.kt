@@ -37,7 +37,7 @@ class NewPostActivity : AbstractActivity(), NewPostContract.View {
     override fun setLayoutView(): Int = R.layout.activity_new_post
 
     override fun setupView() {
-        userManager = UserManager.instance!!
+        userManager = UserManager.instance
         isEditMode = intent.getBooleanExtra(NewPostActivity::class.java.simpleName, false)
         setTitle(R.string.title_new_post)
         setMenuRightText(R.string.post_shared)
