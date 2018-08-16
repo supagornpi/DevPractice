@@ -118,7 +118,7 @@
         </LinearLayout>
     </FrameLayout>
 
-    <include layout="@layout/layout_scrolling_background" />
+    <!--<include layout="@layout/layout_scrolling_background" />-->
 
     <LinearLayout
         android:layout_width="match_parent"
