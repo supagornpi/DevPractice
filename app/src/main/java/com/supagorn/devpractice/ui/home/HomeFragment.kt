@@ -110,16 +110,21 @@ class HomeFragment : AbstractFragment(), SidebarContract.View{
         mFirebaseAdapter.stopListening()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        UserManager.instance!!.removeListener()
+    }
+
 
     override fun bindUserProfile(user: User) {
 
     }
 
-    override fun bindUserImage(upload: Upload) {
+    override fun bindUserImage(upload: Upload?) {
         //load image profile in circle
         GlideLoader.loadImageCircle(
                 activity!!.applicationContext,
-                upload.url, ivProfile)
+                upload?.url, ivProfile)
     }
 
     private fun onStarClicked(postRef: DatabaseReference) {

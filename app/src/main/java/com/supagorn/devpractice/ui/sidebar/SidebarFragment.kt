@@ -43,11 +43,11 @@ class SidebarFragment : Fragment(), SidebarContract.View {
         }
     }
 
-    override fun bindUserImage(upload: Upload) {
+    override fun bindUserImage(upload: Upload?) {
         //load image profile in circle
         GlideLoader.loadImageCircle(
                 activity!!.applicationContext,
-                upload.url, ivProfileImage)
+                upload?.url, ivProfileImage)
     }
 
     override fun onDestroy() {

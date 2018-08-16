@@ -48,9 +48,7 @@ class SidebarPresenter constructor(private var view: SidebarContract.View) : Sid
 
             override fun onDataChange(dataSnapshot: DataSnapshot?) {
                 val userImage = dataSnapshot?.getValue(Upload::class.java)
-                if (userImage?.url != null) {
-                    view.bindUserImage(userImage)
-                }
+                view.bindUserImage(userImage)
 
             }
         }

@@ -12,7 +12,7 @@ interface SidebarContract {
     interface View {
         fun bindUserProfile(user: User)
 
-        fun bindUserImage(upload: Upload)
+        fun bindUserImage(upload: Upload?)
 
     }
 }

@@ -8,7 +8,10 @@ import android.view.View
 import android.widget.LinearLayout
 import com.supagorn.devpractice.R
 import com.supagorn.devpractice.firebase.UserManager
+import com.supagorn.devpractice.model.Upload
+import com.supagorn.devpractice.model.account.User
 import com.supagorn.devpractice.model.home.Post
+import com.supagorn.devpractice.utils.GlideLoader
 import kotlinx.android.synthetic.main.view_post_normal.view.*
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -37,7 +40,6 @@ class PostView : LinearLayout {
     }
 
     fun bind(model: Post, starClickListener: View.OnClickListener) {
-        tvName.text = model.author
         tvPostContent.text = model.body
         tvLikeCount.text = context.getString(R.string.post_like, model.likeCount)
 
@@ -53,8 +55,54 @@ class PostView : LinearLayout {
                 R.drawable.ic_like_unactive)
         }
 
+        updateProfile(model.uid, model)
+        updateUserImage(model.uid, model)
+
         btnLike.setOnClickListener(starClickListener)
 
+    }
+
+    private fun updateProfile(uid: String, post: Post) {
+        //update profile
+        if (post.name.isNullOrEmpty()) {
+            UserManager.instance!!.getProfile(uid, object : UserManager.OnEventListener {
+                override fun <T> onDataChange(model: T) {
+                    //null check
+                    if (model == null) {
+                        tvName.text = ""
+                        return
+                    }
+                    //casting
+                    model as User
+                    post.name = ("${model.firstName} ${model.lastName}")
+                    tvName.text = post.name
+                }
+            }, User::class.java)
+        } else {
+            tvName.text = post.name
+        }
+    }
+
+    private fun updateUserImage(uid: String, post: Post) {
+        //update profile
+        if (post.imageUrl.isNullOrEmpty()) {
+            //update user image
+            UserManager.instance!!.getImage(uid, object : UserManager.OnEventListener {
+                override fun <T> onDataChange(model: T) {
+                    //null check
+                    if (model == null) {
+                        GlideLoader.loadDefaultImage(ivProfile)
+                        return
+                    }
+                    //casting
+                    model as Upload
+                    post.imageUrl = model.url
+                    GlideLoader.loadImageCircle(context, post.imageUrl, ivProfile)
+                }
+            }, Upload::class.java)
+        } else {
+            GlideLoader.loadImageCircle(context, post.imageUrl, ivProfile)
+        }
     }
 
     private fun getTimeAgo(time: Long): Long {
@@ -76,12 +124,13 @@ class PostView : LinearLayout {
             builder.append(days)
             builder.append(" วัน")
         } else if (hours > 0) {
-            builder.append(String.format("%02d ชั่วโมงที่แล้ว", hours))
+            builder.append(String.format("%d ชั่วโมงที่แล้ว", hours))
+        } else if (minutes > 0) {
+            builder.append(String.format("%d นาทีที่แล้ว", minutes))
         } else {
-            builder.append(String.format("%02d นาทีที่แล้ว", minutes))
+            builder.append("ไม่กี่วินาทีที่แล้ว")
         }
         return builder.toString()
-
 
         return builder.toString()
     }

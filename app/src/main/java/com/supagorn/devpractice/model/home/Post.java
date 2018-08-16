@@ -9,6 +9,9 @@ import java.util.Map;
 
 @IgnoreExtraProperties
 public class Post {
+    public String name;
+    public String imageUrl;
+
     public String uid;
     public String author;
     public String body;

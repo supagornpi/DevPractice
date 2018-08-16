@@ -1,10 +1,7 @@
 package com.supagorn.devpractice.firebase
 
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.supagorn.devpractice.model.Upload
 import com.supagorn.devpractice.model.account.User
 import com.supagorn.devpractice.model.register.RegisterEntity
@@ -70,6 +67,20 @@ class UserManager {
         mDatabase.child("users").child(UserManager.uid).addValueEventListener(userProfileEventListener!!)
     }
 
+    fun <T> getProfile(uid: String, onEventListener: OnEventListener, mClass: Class<T>) {
+        val userProfileEventListener = object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError?) {
+
+            }
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val model = dataSnapshot.getValue(mClass)
+                onEventListener.onDataChange(model)
+            }
+        }
+        mDatabase.child("users").child(uid).addListenerForSingleValueEvent(userProfileEventListener)
+    }
+
     fun getUserImage(onValueEventListener: OnValueEventListener) {
         userImageEventListener = object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError?) {
@@ -89,12 +100,30 @@ class UserManager {
         mDatabase.child("user-images").child(UserManager.uid).addValueEventListener(userImageEventListener)
     }
 
+    fun <T> getImage(uid: String, onEventListener: OnEventListener, mClass: Class<T>) {
+        val userImageEventListener = object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError?) {
+
+            }
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val model = dataSnapshot.getValue(mClass)
+                onEventListener.onDataChange(model)
+            }
+        }
+        mDatabase.child("user-images").child(uid).addListenerForSingleValueEvent(userImageEventListener)
+    }
+
     fun removeListener() {
-        mDatabase.removeEventListener(userProfileEventListener)
+        mDatabase.removeEventListener(userProfileEventListener!!)
         mDatabase.removeEventListener(userImageEventListener!!)
     }
 
     interface OnValueEventListener {
         fun onDataChange(dataSnapshot: DataSnapshot)
+    }
+
+    interface OnEventListener {
+        fun <T> onDataChange(model: T)
     }
 }
