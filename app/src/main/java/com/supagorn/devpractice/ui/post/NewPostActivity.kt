@@ -4,11 +4,15 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.view.View
+import com.google.firebase.database.DataSnapshot
 import com.supagorn.devpractice.MyApplication
 import com.supagorn.devpractice.R
 import com.supagorn.devpractice.constants.AppEventsConstants
 import com.supagorn.devpractice.customs.AbstractActivity
 import com.supagorn.devpractice.dialog.DialogAlert
+import com.supagorn.devpractice.firebase.UserManager
+import com.supagorn.devpractice.model.Upload
+import com.supagorn.devpractice.model.account.User
 import com.supagorn.devpractice.singleton.AppEventLogger
 import com.supagorn.devpractice.utils.*
 import kotlinx.android.synthetic.main.activity_new_post.*
@@ -20,6 +24,7 @@ class NewPostActivity : AbstractActivity(), NewPostContract.View {
     private var imageUri: Uri? = null
     private var isEditMode = false
     private val presenter: NewPostContract.Presenter = NewPostPresenter(this)
+    private lateinit var userManager: UserManager
 
     companion object {
         fun start() {
@@ -32,6 +37,7 @@ class NewPostActivity : AbstractActivity(), NewPostContract.View {
     override fun setLayoutView(): Int = R.layout.activity_new_post
 
     override fun setupView() {
+        userManager = UserManager.instance!!
         isEditMode = intent.getBooleanExtra(NewPostActivity::class.java.simpleName, false)
         setTitle(R.string.title_new_post)
         setMenuRightText(R.string.post_shared)
@@ -39,10 +45,26 @@ class NewPostActivity : AbstractActivity(), NewPostContract.View {
         showBackButton()
         bindAction()
 
-        //load image profile in circle
-        GlideLoader.loadImageCircle(
-                applicationContext,
-                R.mipmap.ic_launcher, ivProfileImage)
+        userManager.getUserImage(object : UserManager.OnValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val userImage = dataSnapshot.getValue(Upload::class.java)
+                if (userImage?.url != null) {
+                    //load image profile in circle
+                    GlideLoader.loadImageCircle(
+                            applicationContext,
+                            userImage.url, ivProfileImage)
+                }
+            }
+        })
+
+        userManager.getUserProfile(object : UserManager.OnValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val user = dataSnapshot.getValue(User::class.java)
+                if (user != null) {
+                    tvName.text = user.firstName + " " + user.lastName
+                }
+            }
+        })
 
     }
 

@@ -9,7 +9,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.supagorn.devpractice.firebase.UserManager
-import com.supagorn.devpractice.firebase.UserManager.STORAGE_PATH_PROFILE
+import com.supagorn.devpractice.firebase.UserManager.Companion.STORAGE_PATH_PROFILE
 import com.supagorn.devpractice.model.Upload
 import com.supagorn.devpractice.model.account.User
 import com.supagorn.devpractice.model.home.Post

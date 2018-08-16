@@ -10,7 +10,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.supagorn.devpractice.enums.RequireField
 import com.supagorn.devpractice.firebase.UserManager
-import com.supagorn.devpractice.firebase.UserManager.STORAGE_PATH_PROFILE
+import com.supagorn.devpractice.firebase.UserManager.Companion.STORAGE_PATH_PROFILE
 import com.supagorn.devpractice.model.Upload
 import com.supagorn.devpractice.model.account.User
 import com.supagorn.devpractice.model.register.RegisterEntity
@@ -157,7 +157,7 @@ class RegisterPresenter constructor(private var view: RegisterContract.View) : R
                 .addOnProgressListener { taskSnapshot ->
                     //displaying the upload progress
                     val progress = 100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount
-                    view.updateProgress("Uploaded ${progress.toInt()} %...")
+                    view.updateProgress("Uploading ${progress.toInt()} %...")
                 }
     }
 }
