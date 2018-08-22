@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DevPractice</string>
+    <string name="app_name" translatable="false">DevPractice</string>
 
     <string name="title_home">Home</string>
     <string name="title_customs">Customs</string>
@@ -19,7 +19,7 @@
     <string name="price_percentage" translatable="false">%,.0f%%</string>
 
     <!--Title-->
-    <string name="title_new_post">สร้างโพสต์</string>
+    <string name="title_new_post">New post</string>
 
     <!--Button-->
     <string name="button_register">Register</string>
@@ -27,10 +27,10 @@
     <string name="button_logout">Logout</string>
 
     <!--Post-->
-    <string name="post_like">ถูกใจ %,d คน</string>
+    <string name="post_like">Like %,d</string>
     <string name="post_comment">ดูความเห็นทั้ง %,d รายการ</string>
     <string name="post_hint">คุณกำลังคิดอะไรอยู่</string>
-    <string name="post_shared">แชร์</string>
+    <string name="post_shared">Share</string>
 
     <!-- Setting -->
     <string name="setting_change_language">Change Language</string>
@@ -44,6 +44,10 @@
     <string name="dialog_login_failed">User not found.</string>
     <string name="dialog_register_failed">Register failed.</string>
     <string name="dialog_logout">Do you want to Logout?</string>
+
+    <string-array name="dialog_list_more">
+        <item>Delete</item>
+    </string-array>
 
     <!-- language -->
     <string name="language_thai" translatable="false">ไทย</string>

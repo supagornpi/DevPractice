@@ -9,9 +9,9 @@ import java.util.Map;
 
 @IgnoreExtraProperties
 public class Post {
-    public String name;
     public String imageUrl;
 
+    public String fullName;
     public String uid;
     public String author;
     public String body;
@@ -24,8 +24,9 @@ public class Post {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)
     }
 
-    public Post(String uid, String author, String body) {
+    public Post(String uid, String fullName, String author, String body) {
         this.uid = uid;
+        this.fullName = fullName;
         this.author = author;
         this.body = body;
     }
@@ -33,6 +34,7 @@ public class Post {
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
+        result.put("fullName", fullName);
         result.put("uid", uid);
         result.put("author", author);
         result.put("body", body);

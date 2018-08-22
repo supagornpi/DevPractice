@@ -6,7 +6,11 @@ import android.support.annotation.RequiresApi
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.TextView
+import com.google.firebase.database.DatabaseReference
 import com.supagorn.devpractice.R
+import com.supagorn.devpractice.dialog.DialogLists
+import com.supagorn.devpractice.firebase.PostManager
 import com.supagorn.devpractice.firebase.UserManager
 import com.supagorn.devpractice.model.Upload
 import com.supagorn.devpractice.model.account.User
@@ -17,6 +21,8 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 class PostView : LinearLayout {
+
+    private val postManager = PostManager.instance
 
     constructor(context: Context) : super(context) {
         init()
@@ -39,7 +45,8 @@ class PostView : LinearLayout {
         View.inflate(context, R.layout.view_post_normal, this)
     }
 
-    fun bind(model: Post, starClickListener: View.OnClickListener) {
+    fun bind(model: Post, postRef: DatabaseReference) {
+        tvName.text = if (model.fullName.isNullOrEmpty()) model.author else model.fullName
         tvPostContent.text = model.body
         tvLikeCount.text = context.getString(R.string.post_like, model.likeCount)
 
@@ -55,35 +62,44 @@ class PostView : LinearLayout {
                 R.drawable.ic_like_unactive)
         }
 
-        updateProfile(model.uid, model)
-        updateUserImage(model.uid, model)
+        fetchProfile(model.uid, model, postRef)
+        fetchUserImage(model.uid, model)
 
-        btnLike.setOnClickListener(starClickListener)
-
-    }
-
-    private fun updateProfile(uid: String, post: Post) {
-        //update profile
-        if (post.name.isNullOrEmpty()) {
-            UserManager.instance.getProfile(uid, object : UserManager.OnEventListener {
-                override fun <T> onDataChange(model: T) {
-                    //null check
-                    if (model == null) {
-                        tvName.text = ""
-                        return
-                    }
-                    //casting
-                    model as User
-                    post.name = ("${model.firstName} ${model.lastName}")
-                    tvName.text = post.name
-                }
-            }, User::class.java)
-        } else {
-            tvName.text = post.name
+        btnLike.setOnClickListener {
+            // Run two transactions
+            // Need to write to both places the post is stored
+            postManager.onStarClicked(postManager.getGlobalPostRef(postRef.key))
+            postManager.onStarClicked(postManager.getUserPostRef(model.uid, postRef.key))
         }
+
+        btnMore.setOnClickListener({
+            showDialogMore(model.uid, postRef.key)
+        })
     }
 
-    private fun updateUserImage(uid: String, post: Post) {
+    private fun fetchProfile(uid: String, post: Post, postRef: DatabaseReference) {
+        //update profile
+        UserManager.instance.getProfile(uid, object : UserManager.OnEventListener {
+            override fun <T> onDataChange(model: T) {
+                //null check
+                if (model == null) {
+//                        tvName.text = ""
+                    return
+                }
+                //casting
+                model as User
+                val fullName = "${model.firstName} ${model.lastName}"
+                val fullNameInPost = post.fullName
+                if (fullName != fullNameInPost) {
+                    //change
+                    postManager.editFullName(fullName, postManager.getGlobalPostRef(postRef.key))
+                    postManager.editFullName(fullName, postManager.getUserPostRef(uid, postRef.key))
+                }
+            }
+        }, User::class.java)
+    }
+
+    private fun fetchUserImage(uid: String, post: Post) {
         //update profile
         if (post.imageUrl.isNullOrEmpty()) {
             //update user image
@@ -103,6 +119,25 @@ class PostView : LinearLayout {
         } else {
             GlideLoader.loadImageCircle(context, post.imageUrl, ivProfile)
         }
+    }
+
+    private fun showDialogMore(uid: String, key: String) {
+        val items = context.resources.getStringArray(R.array.dialog_list_more).toMutableList()
+        DialogLists.build<String>(context, items)
+                .onCreateItemView(object : DialogLists.OnCreateItemView {
+                    override fun <T> onBindItemView(item: T, textView: TextView, position: Int) {
+
+                    }
+
+                    override fun <T> onItemClicked(item: T, position: Int) {
+                        when (position) {
+                            0 -> {
+                                //remove post
+                                postManager.removePost(uid, key)
+                            }
+                        }
+                    }
+                }).show()
     }
 
     private fun getTimeAgo(time: Long): Long {

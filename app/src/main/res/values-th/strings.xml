@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">DevPractice</string>
 
     <string name="title_home">หน้าหลัก</string>
     <string name="title_customs">ปรับแต่ง</string>
@@ -7,6 +6,20 @@
     <string name="title_setting">ตั้งค่า</string>
 
     <string name="error_not_found">ไม่พบ</string>
+
+    <!--Title-->
+    <string name="title_new_post">สร้างโพสต์</string>
+
+    <!--Button-->
+    <string name="button_register">สมัครสมาชิก</string>
+    <string name="button_login">เข้าสู่ระบบ</string>
+    <string name="button_logout">ออกจากระบบ</string>
+
+    <!--Post-->
+    <string name="post_like">ถูกใจ %,d คน</string>
+    <string name="post_comment">ดูความเห็นทั้ง %,d รายการ</string>
+    <string name="post_hint">คุณกำลังคิดอะไรอยู่</string>
+    <string name="post_shared">แชร์</string>
 
     <!-- Setting -->
     <string name="setting_change_language">เปลี่ยนภาษา</string>
@@ -17,6 +30,13 @@
 
     <!--Dialog-->
     <string name="dialog_select_language">เลือกภาษา</string>
+    <string name="dialog_login_failed">ไม่พบผู้ใช้นี้.</string>
+    <string name="dialog_register_failed">การสมัครสมาชิกล้มเหลว.</string>
+    <string name="dialog_logout">ออกจากระบบ?</string>
+
+    <string-array name="dialog_list_more">
+        <item>Delete</item>
+    </string-array>
 
     <!-- language -->
     <string name="language_thai" translatable="false">ไทย</string>
@@ -24,4 +44,27 @@
 
     <!--Category-->
     <string name="category_video">วีดีโอ</string>
+
+    <!--Register-->
+    <string name="register">สมัครสมาชิก</string>
+    <string name="register_edit_mode">แก้ไขข้อมูลส่วนตัว</string>
+    <string name="register_first_name">ชื่อ</string>
+    <string name="register_last_name">นามสกุล</string>
+    <string name="register_mobile">มือถือ</string>
+    <string name="register_email">อีเมล</string>
+    <string name="register_identify_card">เลขบัตรประชาชน</string>
+    <string name="register_gender">เพศ</string>
+    <string name="register_password">รหัสผ่าน</string>
+    <string name="register_confirm_password">ยืนยันรหัสผ่าน</string>
+    <string name="register_remark">หมายเหตุ ..</string>
+    <string-array name="gender_list">
+        <item>เลือกเพศของคุณ</item>
+        <item>ชาย</item>
+        <item>หญิง</item>
+    </string-array>
+
+    <!--Login-->
+    <string name="login_title">เข้าสู่ระบบ</string>
+    <string name="login_email">อีเมล</string>
+    <string name="login_password">รหัสผ่าน</string>
 </resources>

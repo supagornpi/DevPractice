@@ -35,7 +35,7 @@ class NewPostPresenter constructor(private var view: NewPostContract.View) : New
                     if (user == null) {
                         view.postFailed()
                     } else {
-                        writeNewPost(userId, user.username, body)
+                        writeNewPost(userId, "${user.firstName} ${user.lastName}", user.username, body)
                     }
                     view.postSuccess()
 //                    finish()
@@ -52,7 +52,7 @@ class NewPostPresenter constructor(private var view: NewPostContract.View) : New
     private fun validate(body: String?): Boolean {
         var isValid = false
         if (body.isNullOrEmpty()) {
-            //require first name
+            //require first fullName
             view.requireField()
         } else {
             isValid = true
@@ -60,11 +60,11 @@ class NewPostPresenter constructor(private var view: NewPostContract.View) : New
         return isValid
     }
 
-    private fun writeNewPost(userId: String, username: String, body: String) {
+    private fun writeNewPost(userId: String, fullName: String, username: String, body: String) {
         // Create new submitPost at /user-posts/$userid/$postid
         // and at /posts/$postid simultaneously
         val key = mDatabase.child("posts").push().key
-        val post = Post(userId, username, body)
+        val post = Post(userId, fullName, username, body)
         val postValues = post.toMap()
 
         val childUpdates = HashMap<String, Any>()

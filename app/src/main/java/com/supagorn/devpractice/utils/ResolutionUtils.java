@@ -57,4 +57,17 @@ public class ResolutionUtils {
         layoutParams.height = viewHeight;
         view.setLayoutParams(layoutParams);
     }
+
+    public static void setViewWidth(Context context, float scaleWidth, View view) {
+        //set image size
+        Resources resources = context.getResources();
+        int screenWidth = ResolutionUtils.getScreenSize(context)[0];
+        int viewMargin = resources.getDimensionPixelOffset(R.dimen.padding_small) * 2;
+        int viewWidth = ((int) Math.floor(screenWidth / scaleWidth)) - viewMargin;
+
+        ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+        layoutParams.width = viewWidth;
+        layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        view.setLayoutParams(layoutParams);
+    }
 }
