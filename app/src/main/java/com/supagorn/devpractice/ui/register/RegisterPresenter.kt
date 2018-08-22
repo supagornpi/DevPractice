@@ -9,6 +9,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.supagorn.devpractice.enums.RequireField
+import com.supagorn.devpractice.firebase.PostManager
 import com.supagorn.devpractice.firebase.UserManager
 import com.supagorn.devpractice.firebase.UserManager.Companion.STORAGE_PATH_PROFILE
 import com.supagorn.devpractice.model.Upload
@@ -79,6 +80,8 @@ class RegisterPresenter constructor(private var view: RegisterContract.View) : R
         isEditMode = true
         if (validate(entity)) {
             UserManager.updateUserData(UserManager.uid, entity)
+            PostManager.instance.changeFullNameAllPost("${entity.firstName} ${entity.lastName}")
+
             if (entity.imageUri != null) {
                 val username = UserManager.createUsernameWithEmail(entity.email)
                 uploadFile(entity.imageUri, username)

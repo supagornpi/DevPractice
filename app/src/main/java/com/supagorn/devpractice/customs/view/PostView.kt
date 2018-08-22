@@ -13,7 +13,6 @@ import com.supagorn.devpractice.dialog.DialogLists
 import com.supagorn.devpractice.firebase.PostManager
 import com.supagorn.devpractice.firebase.UserManager
 import com.supagorn.devpractice.model.Upload
-import com.supagorn.devpractice.model.account.User
 import com.supagorn.devpractice.model.home.Post
 import com.supagorn.devpractice.utils.GlideLoader
 import kotlinx.android.synthetic.main.view_post_normal.view.*
@@ -62,7 +61,6 @@ class PostView : LinearLayout {
                 R.drawable.ic_like_unactive)
         }
 
-        fetchProfile(model.uid, model, postRef)
         fetchUserImage(model.uid, model)
 
         btnLike.setOnClickListener {
@@ -75,28 +73,6 @@ class PostView : LinearLayout {
         btnMore.setOnClickListener({
             showDialogMore(model.uid, postRef.key)
         })
-    }
-
-    private fun fetchProfile(uid: String, post: Post, postRef: DatabaseReference) {
-        //update profile
-        UserManager.instance.getProfile(uid, object : UserManager.OnEventListener {
-            override fun <T> onDataChange(model: T) {
-                //null check
-                if (model == null) {
-//                        tvName.text = ""
-                    return
-                }
-                //casting
-                model as User
-                val fullName = "${model.firstName} ${model.lastName}"
-                val fullNameInPost = post.fullName
-                if (fullName != fullNameInPost) {
-                    //change
-                    postManager.editFullName(fullName, postManager.getGlobalPostRef(postRef.key))
-                    postManager.editFullName(fullName, postManager.getUserPostRef(uid, postRef.key))
-                }
-            }
-        }, User::class.java)
     }
 
     private fun fetchUserImage(uid: String, post: Post) {
