@@ -1,5 +1,6 @@
 package com.supagorn.devpractice.customs.view
 
+import android.animation.AnimatorInflater
 import android.content.Context
 import android.os.Build
 import android.support.annotation.RequiresApi
@@ -59,6 +60,12 @@ class PostView : LinearLayout {
             btnLike.setImageResource(if (model.likes.containsKey(UserManager.uid))
                 R.drawable.ic_like_active else
                 R.drawable.ic_like_unactive)
+
+            //set animator
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                val anim = AnimatorInflater.loadStateListAnimator(context, R.animator.scale)
+                btnLike.stateListAnimator = anim
+            }
         }
 
         fetchUserImage(model.uid, model)
