@@ -32,11 +32,6 @@ class DialogLists<T>(context: Context) : Dialog(context) {
             }
             return dialogList.setItems(items)
         }
-
-        enum class Items constructor(val itemName: String) {
-            Delete("ลบ"),
-            Shared("แชร์");
-        }
     }
 
     private var onCreateItemView: OnCreateItemView? = null
@@ -57,7 +52,7 @@ class DialogLists<T>(context: Context) : Dialog(context) {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val view = inflater.inflate(R.layout.dialog_lists, null)
         setContentView(view)
-        ResolutionUtils.setViewWidth(context, 1.5f, view)
+        ResolutionUtils.setViewWidth(context, 1.2f, view)
 
 //        setView(view)
         window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))

@@ -20,6 +20,7 @@
 
     <!--Title-->
     <string name="title_new_post">New post</string>
+    <string name="title_edit_post">Edit post</string>
 
     <!--Button-->
     <string name="button_register">Register</string>
@@ -44,6 +45,11 @@
     <string name="dialog_login_failed">User not found.</string>
     <string name="dialog_register_failed">Register failed.</string>
     <string name="dialog_logout">Do you want to Logout?</string>
+
+    <string-array name="dialog_list_more_owner">
+        <item>Delete</item>
+        <item>Edit</item>
+    </string-array>
 
     <string-array name="dialog_list_more">
         <item>Delete</item>

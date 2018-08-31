@@ -84,6 +84,32 @@ class PostManager {
         })
     }
 
+    fun getPost(key: String): DatabaseReference {
+        return mDatabase.child("posts").child(key)
+    }
+
+    fun editPostAtAll(newMessage: String, postKey: String) {
+        editPost(newMessage, getUserPostRef(UserManager.uid, postKey))
+        editPost(newMessage, getGlobalPostRef(postKey))
+    }
+
+    private fun editPost(newMessage: String, postRef: DatabaseReference) {
+        postRef.runTransaction(object : Transaction.Handler {
+            override fun doTransaction(mutableData: MutableData): Transaction.Result {
+                val p = mutableData.getValue(Post::class.java)
+                        ?: return Transaction.success(mutableData)
+                p.body = newMessage
+                // Set value and report transaction success
+                mutableData.value = p
+                return Transaction.success(mutableData)
+            }
+
+            override fun onComplete(databaseError: DatabaseError?, b: Boolean, dataSnapshot: DataSnapshot?) {
+                Log.d("postTransaction", "onComplete:" + dataSnapshot?.key)
+            }
+        })
+    }
+
     private fun changeFullName(newName: String, postRef: DatabaseReference) {
         postRef.runTransaction(object : Transaction.Handler {
             override fun doTransaction(mutableData: MutableData): Transaction.Result {

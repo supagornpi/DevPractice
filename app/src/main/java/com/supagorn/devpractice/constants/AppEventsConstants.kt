@@ -12,4 +12,7 @@ object AppEventsConstants {
     const val EVENT_NAME_VIEW_VIDEO = "View video"
     const val EVENT_NAME_OPEN_SIDE_BAR = "Open sidebar"
 
+    const val EVENT_NAME_VIEW_NEW_POST = "View new post"
+    const val EVENT_NAME_VIEW_EDIT_POST = "View edit post"
+
 }

@@ -8,6 +8,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
+import com.supagorn.devpractice.firebase.PostManager
 import com.supagorn.devpractice.firebase.UserManager
 import com.supagorn.devpractice.firebase.UserManager.Companion.STORAGE_PATH_PROFILE
 import com.supagorn.devpractice.model.Upload
@@ -22,11 +23,26 @@ class NewPostPresenter constructor(private var view: NewPostContract.View) : New
     private val mDatabase = FirebaseDatabase.getInstance().reference
     val storageReference = FirebaseStorage.getInstance().reference
 
+    override fun fetchPost(postKey: String) {
+        PostManager.instance.getPost(postKey).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError?) {
+
+            }
+
+            override fun onDataChange(dataSnapshot: DataSnapshot?) {
+                val data = dataSnapshot?.getValue(Post::class.java)
+                data?.let {
+                    view.showPost(data.body)
+                }
+            }
+        })
+    }
+
     override fun submitPost(body: String) {
         val userId = UserManager.uid
 
         if (validate(body)) {
-            view.hideProgressDialog()
+            view.showProgressDialog()
             // Disable button so there are no multi-posts
             mDatabase.child("users").child(userId).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -46,6 +62,13 @@ class NewPostPresenter constructor(private var view: NewPostContract.View) : New
                     view.postFailed()
                 }
             })
+        }
+    }
+
+    override fun editPost(body: String, postKey: String) {
+        if (validate(body)) {
+            PostManager.instance.editPostAtAll(body, postKey)
+            view.postSuccess()
         }
     }
 

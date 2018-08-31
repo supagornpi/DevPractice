@@ -9,6 +9,7 @@
 
     <!--Title-->
     <string name="title_new_post">สร้างโพสต์</string>
+    <string name="title_edit_post">แก้ไขโพสต์</string>
 
     <!--Button-->
     <string name="button_register">สมัครสมาชิก</string>
@@ -34,8 +35,13 @@
     <string name="dialog_register_failed">การสมัครสมาชิกล้มเหลว.</string>
     <string name="dialog_logout">ออกจากระบบ?</string>
 
+    <string-array name="dialog_list_more_owner">
+        <item>ลบ</item>
+        <item>แก้ไข</item>
+    </string-array>
+
     <string-array name="dialog_list_more">
-        <item>Delete</item>
+        <item>ลบ</item>
     </string-array>
 
     <!-- language -->

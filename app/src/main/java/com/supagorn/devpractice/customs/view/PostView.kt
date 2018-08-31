@@ -15,6 +15,7 @@ import com.supagorn.devpractice.firebase.PostManager
 import com.supagorn.devpractice.firebase.UserManager
 import com.supagorn.devpractice.model.Upload
 import com.supagorn.devpractice.model.home.Post
+import com.supagorn.devpractice.ui.post.NewPostActivity
 import com.supagorn.devpractice.utils.GlideLoader
 import kotlinx.android.synthetic.main.view_post_normal.view.*
 import java.util.*
@@ -80,6 +81,10 @@ class PostView : LinearLayout {
         btnMore.setOnClickListener({
             showDialogMore(model.uid, postRef.key)
         })
+
+        tvPostContent.setOnClickListener {
+            gotoEditPost(model.uid, postRef.key)
+        }
     }
 
     private fun fetchUserImage(uid: String, post: Post) {
@@ -105,7 +110,15 @@ class PostView : LinearLayout {
     }
 
     private fun showDialogMore(uid: String, key: String) {
-        val items = context.resources.getStringArray(R.array.dialog_list_more).toMutableList()
+        val items: MutableList<String>
+        if (UserManager.uid == uid) {
+            //owner
+            items = context.resources.getStringArray(R.array.dialog_list_more_owner).toMutableList()
+        } else {
+            //user
+            items = context.resources.getStringArray(R.array.dialog_list_more).toMutableList()
+        }
+
         DialogLists.build<String>(context, items)
                 .onCreateItemView(object : DialogLists.OnCreateItemView {
                     override fun <T> onBindItemView(item: T, textView: TextView, position: Int) {
@@ -118,9 +131,18 @@ class PostView : LinearLayout {
                                 //remove post
                                 postManager.removePost(uid, key)
                             }
+                            1 -> {
+                                gotoEditPost(uid, key)
+                            }
                         }
                     }
                 }).show()
+    }
+
+    private fun gotoEditPost(uid: String, key: String) {
+        if (UserManager.uid == uid) {
+            NewPostActivity.startEditMode(key)
+        }
     }
 
     private fun getTimeAgo(time: Long): Long {
