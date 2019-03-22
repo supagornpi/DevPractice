@@ -61,6 +61,8 @@
 
     <!--Category-->
     <string name="category_video">Video</string>
+    <string name="category_view_pager_vertical" translatable="false">ViewPager Vertical</string>
+    <string name="category_fragment_view_pager_vertical" translatable="false">Fragment ViewPager Vertical</string>
 
     <!--Register-->
     <string name="register">Register</string>

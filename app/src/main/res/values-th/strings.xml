@@ -6,6 +6,12 @@
     <string name="title_setting">ตั้งค่า</string>
 
     <string name="error_not_found">ไม่พบ</string>
+    <string name="error_email_invalid">Email is invalid</string>
+    <string name="error_password_invalid">Password must be at least 6 characters.</string>
+    <string name="error_password_not_match">Password not match</string>
+    <string name="error_mobile_invalid">Mobile number is invalid</string>
+    <string name="error_id_card_invalid">ID card number is invalid</string>
+    <string name="error_please_fill">Please fill</string>
 
     <!--Title-->
     <string name="title_new_post">สร้างโพสต์</string>

@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.supagorn.devpractice.R
 import com.supagorn.devpractice.enums.Categories
+import com.supagorn.devpractice.ui.category.viewpager.FragmentViewPagerActivity
+import com.supagorn.devpractice.ui.category.viewpager.ViewPagerActivity
 import com.supagorn.devpractice.ui.video.VideoFullScreenActivity
 import com.supagorn.devpractice.utils.ResolutionUtils
 import kotlinx.android.synthetic.main.layout_item_category.view.*
@@ -24,7 +26,12 @@ class CategoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val entity = list[position]
         holder.itemView.imgIcon.setImageResource(entity.icon)
-        holder.itemView.tvTitle.text = holder.itemView.context.resources.getString(entity.title)
+
+        if (entity.icon == 0) {
+            holder.itemView.tvLargeTitle.text = holder.itemView.context.resources.getString(entity.title)
+        } else {
+            holder.itemView.tvTitle.text = holder.itemView.context.resources.getString(entity.title)
+        }
         bindAction(holder, position)
     }
 
@@ -39,6 +46,12 @@ class CategoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             when (list[position]) {
                 Categories.Video -> {
                     VideoFullScreenActivity.start(holder.itemView.context)
+                }
+                Categories.ViewPagerVertical -> {
+                    ViewPagerActivity.start()
+                }
+                Categories.FragmentViewPagerVertical -> {
+                    FragmentViewPagerActivity.start()
                 }
             }
         }

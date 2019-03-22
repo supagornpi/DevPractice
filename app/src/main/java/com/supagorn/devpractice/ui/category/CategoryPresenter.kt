@@ -5,9 +5,11 @@ import com.supagorn.devpractice.enums.Categories
 class CategoryPresenter constructor(val view: CategoryContract.View) : CategoryContract.Presenter {
 
     override fun start() {
-        val settings: MutableList<Categories> = mutableListOf()
-        settings.add(Categories.Video)
-        view.showCategory(settings)
+        val categories: MutableList<Categories> = mutableListOf()
+        categories.add(Categories.Video)
+        categories.add(Categories.ViewPagerVertical)
+        categories.add(Categories.FragmentViewPagerVertical)
+        view.showCategory(categories)
     }
 
     override fun stop() {
