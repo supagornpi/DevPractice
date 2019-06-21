@@ -88,6 +88,10 @@ class PostManager {
         return mDatabase.child("posts").child(key)
     }
 
+    fun getAllPost(): DatabaseReference {
+        return mDatabase.child("posts")
+    }
+
     fun editPostAtAll(newMessage: String, postKey: String) {
         editPost(newMessage, getUserPostRef(UserManager.uid, postKey))
         editPost(newMessage, getGlobalPostRef(postKey))

@@ -46,7 +46,7 @@ class PostView : LinearLayout {
         View.inflate(context, R.layout.view_post_normal, this)
     }
 
-    fun bind(model: Post, postRef: DatabaseReference) {
+    fun bind(model: Post, postRef: DatabaseReference?) {
         tvName.text = if (model.fullName.isNullOrEmpty()) model.author else model.fullName
         tvPostContent.text = model.body
         tvLikeCount.text = context.getString(R.string.post_like, model.likeCount)
@@ -71,19 +71,21 @@ class PostView : LinearLayout {
 
         fetchUserImage(model.uid, model)
 
-        btnLike.setOnClickListener {
-            // Run two transactions
-            // Need to write to both places the post is stored
-            postManager.onStarClicked(postManager.getGlobalPostRef(postRef.key))
-            postManager.onStarClicked(postManager.getUserPostRef(model.uid, postRef.key))
-        }
+        postRef?.let {
+            btnLike.setOnClickListener {
+                // Run two transactions
+                // Need to write to both places the post is stored
+                postManager.onStarClicked(postManager.getGlobalPostRef(postRef.key))
+                postManager.onStarClicked(postManager.getUserPostRef(model.uid, postRef.key))
+            }
 
-        btnMore.setOnClickListener({
-            showDialogMore(model.uid, postRef.key)
-        })
+            btnMore.setOnClickListener {
+                showDialogMore(model.uid, postRef.key)
+            }
 
-        tvPostContent.setOnClickListener {
-            gotoEditPost(model.uid, postRef.key)
+            tvPostContent.setOnClickListener {
+                gotoEditPost(model.uid, postRef.key)
+            }
         }
     }
 

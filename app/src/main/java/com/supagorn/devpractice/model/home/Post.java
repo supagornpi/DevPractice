@@ -9,6 +9,7 @@ import java.util.Map;
 
 @IgnoreExtraProperties
 public class Post {
+    public int id;
     public String imageUrl;
 
     public String fullName;
@@ -34,6 +35,7 @@ public class Post {
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
+        result.put("id", id);
         result.put("fullName", fullName);
         result.put("uid", uid);
         result.put("author", author);

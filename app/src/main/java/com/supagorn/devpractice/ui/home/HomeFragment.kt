@@ -1,15 +1,18 @@
 package com.supagorn.devpractice.ui.home
 
-import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.supagorn.devpractice.R
 import com.supagorn.devpractice.constants.AppEventsConstants
 import com.supagorn.devpractice.customs.AbstractFragment
 import com.supagorn.devpractice.customs.adapter.PostViewHolder
+import com.supagorn.devpractice.customs.adapter.kotlin.FlexibleAdapter
 import com.supagorn.devpractice.customs.view.PostView
+import com.supagorn.devpractice.firebase.PostManager
 import com.supagorn.devpractice.model.Upload
 import com.supagorn.devpractice.model.account.User
 import com.supagorn.devpractice.model.home.Post
@@ -20,6 +23,8 @@ import com.supagorn.devpractice.ui.sidebar.SidebarPresenter
 import com.supagorn.devpractice.utils.GlideLoader
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.view_recyclerview_with_progress.*
+import java.util.HashMap
+import kotlin.collections.ArrayList
 
 /**
  * Created by apple on 2/18/2018 AD.
@@ -27,9 +32,11 @@ import kotlinx.android.synthetic.main.view_recyclerview_with_progress.*
 
 class HomeFragment : AbstractFragment(), SidebarContract.View {
 
-    private val mDatabase = FirebaseDatabase.getInstance().reference
-    private lateinit var mFirebaseAdapter: FirebaseRecyclerAdapter<Post, PostViewHolder>
+//    private val mDatabase = FirebaseDatabase.getInstance().reference
+//    private lateinit var mFirebaseAdapter: FirebaseRecyclerAdapter<Post, PostViewHolder>
     private val presenter: SidebarContract.Presenter = SidebarPresenter(this)
+
+    private lateinit var adapter: FlexibleAdapter<Post>
 
     override fun setLayoutView(): Int {
         return R.layout.fragment_home
@@ -44,9 +51,13 @@ class HomeFragment : AbstractFragment(), SidebarContract.View {
 
     private fun bindUI() {
         bindAction()
-        initRecyclerView()
+//        initRecyclerView()
+        initPostRecyclerView()
+        initPullToRefresh()
 
         presenter.fetchUserImage()
+
+        getPosts()
 
     }
 
@@ -56,48 +67,106 @@ class HomeFragment : AbstractFragment(), SidebarContract.View {
         }
     }
 
-    private fun initRecyclerView() {
-        val postsQuery = mDatabase.child("posts")
+//    private fun initRecyclerView() {
+//        val postsQuery = mDatabase.child("posts")
+//
+//        // Set up Layout Manager, reverse layout
+//        val mManager = LinearLayoutManager(context)
+//        mManager.reverseLayout = true
+//        mManager.stackFromEnd = true
+//        recyclerView.layoutManager = mManager
+//
+//        val options = FirebaseRecyclerOptions.Builder<Post>()
+//                .setQuery(postsQuery, Post::class.java)
+//                .build()
+//
+//        mFirebaseAdapter = object : FirebaseRecyclerAdapter<Post, PostViewHolder>(options) {
+//            override fun onBindViewHolder(viewHolder: PostViewHolder, position: Int, model: Post) {
+//                val postRef = getRef(position)
+//                viewHolder.itemView as PostView
+//
+//                // Bind Post to ViewHolder, setting OnClickListener for the star button
+//                viewHolder.itemView.bind(model, postRef)
+//            }
+//
+//            override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): PostViewHolder {
+//                return PostViewHolder(PostView(viewGroup.context))
+//            }
+//
+//            override fun onDataChanged() {
+//                super.onDataChanged()
+//            }
+//        }
+////        recyclerView.adapter = mFirebaseAdapter
+//    }
 
-        // Set up Layout Manager, reverse layout
+    private fun initPostRecyclerView() {
         val mManager = LinearLayoutManager(context)
-        mManager.reverseLayout = true
-        mManager.stackFromEnd = true
         recyclerView.layoutManager = mManager
 
-        val options = FirebaseRecyclerOptions.Builder<Post>()
-                .setQuery(postsQuery, Post::class.java)
-                .build()
-
-        mFirebaseAdapter = object : FirebaseRecyclerAdapter<Post, PostViewHolder>(options) {
-            override fun onBindViewHolder(viewHolder: PostViewHolder, position: Int, model: Post) {
-                val postRef = getRef(position)
-                viewHolder.itemView as PostView
+        adapter = FlexibleAdapter(object : FlexibleAdapter.OnBindViewListener {
+            override fun <T> onBindViewHolder(item: T, itemView: View, viewType: Int, position: Int) {
+                itemView as PostView
 
                 // Bind Post to ViewHolder, setting OnClickListener for the star button
-                viewHolder.itemView.bind(model, postRef)
+                itemView.bind(item as Post, null)
             }
 
-            override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): PostViewHolder {
-                return PostViewHolder(PostView(viewGroup.context))
+            override fun onCreateView(parent: ViewGroup, viewType: Int): View {
+                return PostView(context!!)
+            }
+        }, object : FlexibleAdapter.OnDiffCallback {
+            override fun <T> areItemsTheSame(oldItem: T, newItem: T): Boolean {
+                oldItem as Post
+                newItem as Post
+                return oldItem.id == newItem.id
             }
 
-            override fun onDataChanged() {
-                super.onDataChanged()
+            override fun <T> areContentsTheSame(oldItem: T, newItem: T): Boolean {
+                oldItem as Post
+                newItem as Post
+                return oldItem.body == newItem.body && oldItem.timestamp == newItem.timestamp
             }
+        })
+
+        recyclerView.adapter = adapter
+    }
+
+    private fun initPullToRefresh() {
+        swipeRefreshLayout.setOnRefreshListener {
+            getPosts()
+            //mFirebaseAdapter.onNewData(DataGenerator.getUpdatedData())
+            swipeRefreshLayout.isRefreshing = false
         }
-        recyclerView.adapter = mFirebaseAdapter
     }
 
-    override fun onStart() {
-        super.onStart()
-        mFirebaseAdapter.startListening()
+    private fun getPosts() {
+        PostManager.instance.getAllPost().addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError?) {
+
+            }
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val objectsGTypeInd = object : GenericTypeIndicator<HashMap<String, Post>>() {
+
+                }
+                val objectHashMap = dataSnapshot.getValue<HashMap<String, Post>>(objectsGTypeInd)
+                        ?: return
+                val posts = ArrayList<Post>(objectHashMap.values)
+                adapter.submitList(posts)
+            }
+        })
     }
 
-    override fun onStop() {
-        super.onStop()
-        mFirebaseAdapter.stopListening()
-    }
+//    override fun onStart() {
+//        super.onStart()
+//        mFirebaseAdapter.startListening()
+//    }
+//
+//    override fun onStop() {
+//        super.onStop()
+//        mFirebaseAdapter.stopListening()
+//    }
 
     override fun bindUserProfile(user: User) {
 
