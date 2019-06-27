@@ -2,7 +2,7 @@ package com.supagorn.devpractice.customs
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.layout_action_bar.*
  * Created by supagorn on 17/2/2018 AD.
  *
  */
-abstract class AbstractFragment : Fragment() {
+abstract class AbstractFragment : androidx.fragment.app.Fragment() {
 
     var fragmentNavigation: FragmentNavigation? = null
 

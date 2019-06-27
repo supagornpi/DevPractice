@@ -2,7 +2,7 @@ package com.supagorn.devpractice.ui.sidebar
 
 import android.content.DialogInterface
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_sidebar.*
 /**
  * A simple [Fragment] subclass.
  */
-class SidebarFragment : Fragment(), SidebarContract.View {
+class SidebarFragment : androidx.fragment.app.Fragment(), SidebarContract.View {
 
     private val presenter: SidebarContract.Presenter = SidebarPresenter(this)
 

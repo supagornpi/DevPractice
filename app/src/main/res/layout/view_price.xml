@@ -29,7 +29,7 @@
             android:textSize="@dimen/text_small"
             tools:text="฿129" />
 
-        <android.support.v4.widget.Space
+        <androidx.legacy.widget.Space
             android:layout_width="@dimen/padding_small"
             android:layout_height="wrap_content" />
 

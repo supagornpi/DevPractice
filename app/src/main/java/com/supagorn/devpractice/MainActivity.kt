@@ -3,9 +3,9 @@ package com.supagorn.devpractice
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
-import android.support.v4.app.Fragment
-import android.support.v4.widget.DrawerLayout
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.fragment.app.Fragment
+import androidx.drawerlayout.widget.DrawerLayout
 import android.view.Gravity
 import android.view.MenuItem
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
@@ -34,7 +34,7 @@ class MainActivity : BaseActivity(), SideMenu {
         val position = getNavPositionFromMenuItem(item)
         //lock side bar
         drawerLayout.setDrawerLockMode(if (position == 0)
-            DrawerLayout.LOCK_MODE_UNLOCKED else DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED else androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
         if (position != -1) {
             fragmentStateManager?.changeFragment(getNavPositionFromMenuItem(item))
@@ -57,7 +57,7 @@ class MainActivity : BaseActivity(), SideMenu {
         setContentView(R.layout.activity_main)
 
         fragmentStateManager = object : FragmentStateManager(main_content, supportFragmentManager) {
-            override fun getItem(position: Int): Fragment {
+            override fun getItem(position: Int): androidx.fragment.app.Fragment {
                 return when (position) {
                     0 -> HolderFragment.newInstance(Tabs.Home)
                     1 -> HolderFragment.newInstance(Tabs.Category)
@@ -105,7 +105,7 @@ class MainActivity : BaseActivity(), SideMenu {
         drawerLayout.closeDrawer(Gravity.END)
     }
 
-    override fun openFragment(fragment: Fragment?) {
+    override fun openFragment(fragment: androidx.fragment.app.Fragment?) {
 
     }
 }

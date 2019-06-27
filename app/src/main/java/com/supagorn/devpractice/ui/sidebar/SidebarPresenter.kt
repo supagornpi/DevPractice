@@ -42,16 +42,16 @@ class SidebarPresenter constructor(private var view: SidebarContract.View) : Sid
 
     override fun fetchUserImage() {
         userImageEventListener = object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
 
             }
 
-            override fun onDataChange(dataSnapshot: DataSnapshot?) {
-                val userImage = dataSnapshot?.getValue(Upload::class.java)
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val userImage = dataSnapshot.getValue(Upload::class.java)
                 view.bindUserImage(userImage)
 
             }
         }
-        mDatabase.child("user-images").child(UserManager.uid).addValueEventListener(userImageEventListener)
+        mDatabase.child("user-images").child(UserManager.uid).addValueEventListener(userImageEventListener as ValueEventListener)
     }
 }

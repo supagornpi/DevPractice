@@ -159,8 +159,10 @@ class NewPostActivity : AbstractActivity(), NewPostContract.View {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == REQUEST_IMAGE_GALLERY && data != null) {
-                loadProfileUri(data.data)
-                imageUri = data.data
+                data.data?.let {
+                    loadProfileUri(data.data!!)
+                    imageUri = data.data
+                }
             }
         }
     }

@@ -1,8 +1,8 @@
 package com.supagorn.devpractice;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.supagorn.devpractice.customs.FragmentNavigation;
-import com.supagorn.devpractice.ui.SampleFragment;
 import com.supagorn.devpractice.ui.category.CategoryFragment;
 import com.supagorn.devpractice.ui.home.HomeFragment;
 import com.supagorn.devpractice.ui.library.LibraryFragment;

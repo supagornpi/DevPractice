@@ -1,6 +1,6 @@
 package com.supagorn.devpractice.utils
 
-import android.support.v7.util.DiffUtil
+import androidx.recyclerview.widget.DiffUtil
 
 class MyDiffCallback<T>(private val newPersons: List<T>, private val oldPersons: List<T>) : DiffUtil.Callback() {
 

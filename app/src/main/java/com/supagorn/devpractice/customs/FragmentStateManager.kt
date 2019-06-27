@@ -1,15 +1,15 @@
 package com.supagorn.devpractice.customs
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import android.view.ViewGroup
 
-abstract class FragmentStateManager(private var container: ViewGroup, private val mFragmentManager: FragmentManager) {
+abstract class FragmentStateManager(private var container: ViewGroup, private val mFragmentManager: androidx.fragment.app.FragmentManager) {
 
     /**
      * Return the Fragment associated with a specified position.
      */
-    abstract fun getItem(position: Int): Fragment
+    abstract fun getItem(position: Int): androidx.fragment.app.Fragment
 
     /**
      * Shows fragment at position and detaches previous fragment if exists. If fragment is found in
@@ -18,7 +18,7 @@ abstract class FragmentStateManager(private var container: ViewGroup, private va
      * @param position
      * @return fragment at position
      */
-    fun changeFragment(position: Int): Fragment {
+    fun changeFragment(position: Int): androidx.fragment.app.Fragment {
         val tag = makeFragmentName(container.id, getItemId(position))
         val fragmentTransaction = mFragmentManager.beginTransaction()
 
@@ -26,7 +26,7 @@ abstract class FragmentStateManager(private var container: ViewGroup, private va
           If fragment manager doesn't have an instance of the fragment, get an instance
           and add it to the transaction. Else, attach the instance to transaction.
          */
-        var fragment: Fragment? = mFragmentManager.findFragmentByTag(tag)
+        var fragment: androidx.fragment.app.Fragment? = mFragmentManager.findFragmentByTag(tag)
         if (fragment == null) {
             fragment = getItem(position)
             fragmentTransaction.add(container.id, fragment, tag)
@@ -58,8 +58,8 @@ abstract class FragmentStateManager(private var container: ViewGroup, private va
      */
     fun removeFragment(position: Int) {
         val fragmentTransaction = mFragmentManager.beginTransaction()
-        fragmentTransaction.remove(mFragmentManager
-                .findFragmentByTag(makeFragmentName(container.id, getItemId(position))))
+        mFragmentManager
+                .findFragmentByTag(makeFragmentName(container.id, getItemId(position)))?.let { fragmentTransaction.remove(it) }
         fragmentTransaction.commitNowAllowingStateLoss()
     }
 

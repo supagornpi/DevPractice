@@ -1,6 +1,6 @@
 package com.supagorn.devpractice.ui.setting.adapter.binder
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import com.supagorn.devpractice.BuildConfig
 import com.supagorn.devpractice.ui.setting.Settings
 import com.supagorn.devpractice.ui.setting.adapter.viewholder.TextViewHolder

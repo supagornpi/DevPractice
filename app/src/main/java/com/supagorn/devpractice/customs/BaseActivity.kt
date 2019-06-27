@@ -1,7 +1,7 @@
 package com.supagorn.devpractice.customs
 
 import android.content.Context
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.supagorn.devpractice.utils.LanguageHelper
 
 abstract class BaseActivity : AppCompatActivity() {

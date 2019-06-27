@@ -69,7 +69,7 @@
             android:textSize="@dimen/text_small"
             android:textStyle="bold" />
 
-        <android.support.v4.widget.Space
+        <androidx.legacy.widget.Space
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1" />

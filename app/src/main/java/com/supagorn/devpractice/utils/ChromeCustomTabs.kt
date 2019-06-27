@@ -5,7 +5,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import android.support.customtabs.*
+import androidx.browser.customtabs.*
 import com.supagorn.devpractice.R
 
 class ChromeCustomTabs constructor(private var mContext: Context) {

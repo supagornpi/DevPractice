@@ -3,13 +3,13 @@ package com.supagorn.devpractice.ui.home
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.firebase.ui.database.FirebaseRecyclerAdapter
-import com.firebase.ui.database.FirebaseRecyclerOptions
-import com.google.firebase.database.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.GenericTypeIndicator
+import com.google.firebase.database.ValueEventListener
 import com.supagorn.devpractice.R
 import com.supagorn.devpractice.constants.AppEventsConstants
 import com.supagorn.devpractice.customs.AbstractFragment
-import com.supagorn.devpractice.customs.adapter.PostViewHolder
 import com.supagorn.devpractice.customs.adapter.kotlin.FlexibleAdapter
 import com.supagorn.devpractice.customs.view.PostView
 import com.supagorn.devpractice.firebase.PostManager
@@ -32,7 +32,7 @@ import kotlin.collections.ArrayList
 
 class HomeFragment : AbstractFragment(), SidebarContract.View {
 
-//    private val mDatabase = FirebaseDatabase.getInstance().reference
+    //    private val mDatabase = FirebaseDatabase.getInstance().reference
 //    private lateinit var mFirebaseAdapter: FirebaseRecyclerAdapter<Post, PostViewHolder>
     private val presenter: SidebarContract.Presenter = SidebarPresenter(this)
 
@@ -142,7 +142,7 @@ class HomeFragment : AbstractFragment(), SidebarContract.View {
 
     private fun getPosts() {
         PostManager.instance.getAllPost().addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
 
             }
 

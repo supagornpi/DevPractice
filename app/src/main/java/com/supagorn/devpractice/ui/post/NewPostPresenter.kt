@@ -25,12 +25,12 @@ class NewPostPresenter constructor(private var view: NewPostContract.View) : New
 
     override fun fetchPost(postKey: String) {
         PostManager.instance.getPost(postKey).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
 
             }
 
-            override fun onDataChange(dataSnapshot: DataSnapshot?) {
-                val data = dataSnapshot?.getValue(Post::class.java)
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val data = dataSnapshot.getValue(Post::class.java)
                 data?.let {
                     view.showPost(data.body)
                 }
@@ -103,23 +103,24 @@ class NewPostPresenter constructor(private var view: NewPostContract.View) : New
         val sRef = storageReference.child(STORAGE_PATH_PROFILE + System.currentTimeMillis())
         //adding the file to reference
         sRef.putFile(uri)
-                .addOnSuccessListener({ taskSnapshot ->
+                .addOnSuccessListener { taskSnapshot ->
                     //dismissing the progress dialog
                     view.hideProgressDialog()
 
                     //creating the upload object to store uploaded image details
-                    val upload = Upload(username, uri.lastPathSegment, taskSnapshot.downloadUrl.toString())
+                    val upload = Upload(username, uri.lastPathSegment, taskSnapshot.storage.downloadUrl.toString())
 
                     //adding an upload to firebase database
                     UserManager.updateUserImage(upload)
 
                     view.postSuccess()
-                })
-                .addOnFailureListener({ exception ->
+                }
+                .addOnFailureListener { exception ->
                     view.hideProgressDialog()
-                    Log.e("Failure", exception.message)
 
-                })
+                    Log.e("Failure", "with ${exception.message}")
+
+                }
                 .addOnProgressListener { taskSnapshot ->
                     //displaying the upload progress
                     val progress = 100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount

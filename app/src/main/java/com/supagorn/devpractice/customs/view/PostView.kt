@@ -3,7 +3,7 @@ package com.supagorn.devpractice.customs.view
 import android.animation.AnimatorInflater
 import android.content.Context
 import android.os.Build
-import android.support.annotation.RequiresApi
+import androidx.annotation.RequiresApi
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
@@ -75,16 +75,16 @@ class PostView : LinearLayout {
             btnLike.setOnClickListener {
                 // Run two transactions
                 // Need to write to both places the post is stored
-                postManager.onStarClicked(postManager.getGlobalPostRef(postRef.key))
-                postManager.onStarClicked(postManager.getUserPostRef(model.uid, postRef.key))
+                postManager.onStarClicked(postManager.getGlobalPostRef(postRef.key!!))
+                postManager.onStarClicked(postManager.getUserPostRef(model.uid, postRef.key!!))
             }
 
             btnMore.setOnClickListener {
-                showDialogMore(model.uid, postRef.key)
+                showDialogMore(model.uid, postRef.key!!)
             }
 
             tvPostContent.setOnClickListener {
-                gotoEditPost(model.uid, postRef.key)
+                gotoEditPost(model.uid, postRef.key!!)
             }
         }
     }

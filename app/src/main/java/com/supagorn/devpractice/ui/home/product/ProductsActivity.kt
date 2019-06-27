@@ -2,8 +2,8 @@ package com.supagorn.devpractice.ui.home.product
 
 import android.content.Intent
 import android.os.Handler
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.supagorn.devpractice.MyApplication
 import com.supagorn.devpractice.R
 import com.supagorn.devpractice.customs.AbstractActivity

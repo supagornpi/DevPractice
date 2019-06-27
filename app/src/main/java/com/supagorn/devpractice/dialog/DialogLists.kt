@@ -4,11 +4,11 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.supagorn.devpractice.R
 import com.supagorn.devpractice.customs.adapter.kotlin.CustomAdapter
 import com.supagorn.devpractice.customs.view.DialogListView

@@ -1,6 +1,6 @@
 package com.supagorn.devpractice.ui.library.adapter
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +15,7 @@ class LibraryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var linkPreviews: MutableList<LinkPreviewEntity> = mutableListOf()
     private var chromeCustomTabs: ChromeCustomTabs? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.layout_item_library, parent, false))
     }
 

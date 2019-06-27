@@ -38,6 +38,11 @@ class FlexibleAdapter<T>(private var onBindViewListener: OnBindViewListener, onD
         }
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return TYPE_ITEM;
+//        return super.getItemViewType(position)
+    }
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
     }
@@ -45,7 +50,7 @@ class FlexibleAdapter<T>(private var onBindViewListener: OnBindViewListener, onD
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
 
-    inner class PostDiffCallback<T>(private val onDiffCallback: OnDiffCallback) : DiffUtil.ItemCallback<T>() {
+    class PostDiffCallback<T>(private val onDiffCallback: OnDiffCallback) : DiffUtil.ItemCallback<T>() {
 
         override fun areItemsTheSame(oldItem: T, newItem: T): Boolean {
             //return oldItem.id == newItem.id

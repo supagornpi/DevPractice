@@ -1,7 +1,7 @@
 package com.supagorn.devpractice.customs.listener
 
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 
 class ScrollLoadMoreListener(private val listener: OnLoadMoreListener) : RecyclerView.OnScrollListener() {

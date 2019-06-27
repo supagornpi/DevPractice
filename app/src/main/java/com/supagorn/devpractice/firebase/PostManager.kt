@@ -65,18 +65,18 @@ class PostManager {
     fun changeFullNameAllPost(newName: String) {
         val userPosts = mDatabase.child("user-posts").child(UserManager.uid)
         userPosts.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
 
             }
 
-            override fun onDataChange(dataSnapshot: DataSnapshot?) {
-                val data = dataSnapshot?.children?.toMutableList()
-                data?.let {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val data = dataSnapshot.children.toMutableList()
+                data.let {
                     it.listIterator().forEach { item ->
                         //change full name at user-posts
                         changeFullName(newName, item.ref)
                         //change full name at posts
-                        val globalPosts = mDatabase.child("posts").child(item.key)
+                        val globalPosts = mDatabase.child("posts").child(item.key!!)
                         changeFullName(newName, globalPosts.ref)
                     }
                 }

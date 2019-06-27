@@ -1,7 +1,7 @@
 package com.supagorn.devpractice.ui.setting
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.supagorn.devpractice.R
 import com.supagorn.devpractice.constants.AppEventsConstants
 import com.supagorn.devpractice.customs.AbstractFragment

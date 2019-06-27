@@ -1,6 +1,6 @@
 package com.supagorn.devpractice.ui.category
 
-import android.support.v7.widget.GridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import android.widget.LinearLayout
 import com.supagorn.devpractice.R
 import com.supagorn.devpractice.constants.AppEventsConstants

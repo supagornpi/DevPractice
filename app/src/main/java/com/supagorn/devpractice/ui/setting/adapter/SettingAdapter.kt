@@ -1,6 +1,6 @@
 package com.supagorn.devpractice.ui.setting.adapter
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import com.supagorn.devpractice.ui.setting.Settings
 import com.supagorn.devpractice.ui.setting.adapter.binder.SettingViewBinder
@@ -11,7 +11,7 @@ class SettingAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var settings: MutableList<Settings> = mutableListOf()
     var onItemClickListener: OnItemClickListener? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return SettingViewHolderFactory.create(parent, viewType)
     }
 

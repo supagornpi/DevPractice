@@ -70,7 +70,7 @@ class UserManager {
 
     fun <T> getProfile(uid: String, onEventListener: OnEventListener, mClass: Class<T>) {
         val userProfileEventListener = object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
 
             }
 
@@ -84,7 +84,7 @@ class UserManager {
 
     fun getUserImage(onValueEventListener: OnValueEventListener) {
         userImageEventListener = object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
 
             }
 
@@ -98,12 +98,12 @@ class UserManager {
 
             }
         }
-        mDatabase.child("user-images").child(UserManager.uid).addValueEventListener(userImageEventListener)
+        mDatabase.child("user-images").child(uid).addValueEventListener(userImageEventListener as ValueEventListener)
     }
 
     fun <T> getImage(uid: String, onEventListener: OnEventListener, mClass: Class<T>) {
         val userImageEventListener = object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
 
             }
 

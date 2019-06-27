@@ -29,12 +29,15 @@ class RegisterPresenter constructor(private var view: RegisterContract.View) : R
         isEditMode = false
         if (validate(entity)) {
             view.showProgressDialog()
-            mAuth.createUserWithEmailAndPassword(entity.email, entity.password).addOnCompleteListener({ task ->
+            mAuth.createUserWithEmailAndPassword(entity.email, entity.password).addOnCompleteListener { task ->
                 view.hideProgressDialog()
                 if (task.isSuccessful) {
-                    val firebaseUser = task.result.user
+                    task.result?.let {
+                        val firebaseUser = task.result!!.user
 
-                    UserManager.updateUserData(firebaseUser.uid, entity)
+                        UserManager.updateUserData(firebaseUser.uid, entity)
+                    }
+
                     if (entity.imageUri != null) {
                         val username = UserManager.createUsernameWithEmail(entity.email)
                         uploadFile(entity.imageUri, username)
@@ -44,7 +47,7 @@ class RegisterPresenter constructor(private var view: RegisterContract.View) : R
                 } else {
                     view.registerFailed()
                 }
-            })
+            }
         }
     }
 
@@ -63,12 +66,12 @@ class RegisterPresenter constructor(private var view: RegisterContract.View) : R
 
     override fun fetchUserImage() {
         mDatabase.child("user-images").child(UserManager.uid).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
 
             }
 
-            override fun onDataChange(dataSnapshot: DataSnapshot?) {
-                val userImage = dataSnapshot?.getValue(Upload::class.java)
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val userImage = dataSnapshot.getValue(Upload::class.java)
                 if (userImage?.url != null) {
                     view.bindUserImage(userImage)
                 }
@@ -136,12 +139,12 @@ class RegisterPresenter constructor(private var view: RegisterContract.View) : R
         val sRef = storageReference.child(STORAGE_PATH_PROFILE + System.currentTimeMillis())
         //adding the file to reference
         sRef.putFile(uri)
-                .addOnSuccessListener({ taskSnapshot ->
+                .addOnSuccessListener{ taskSnapshot ->
                     //dismissing the progress dialog
                     view.hideProgressDialog()
 
                     //creating the upload object to store uploaded image details
-                    val upload = Upload(username, uri.lastPathSegment, taskSnapshot.downloadUrl.toString())
+                    val upload = Upload(username, uri.lastPathSegment, taskSnapshot.storage.downloadUrl.toString())
 
                     //adding an upload to firebase database
                     UserManager.updateUserImage(upload)
@@ -151,12 +154,12 @@ class RegisterPresenter constructor(private var view: RegisterContract.View) : R
                     } else {
                         view.registerSuccess()
                     }
-                })
-                .addOnFailureListener({ exception ->
+                }
+                .addOnFailureListener{ exception ->
                     view.hideProgressDialog()
                     Log.e("Failure", exception.message)
 
-                })
+                }
                 .addOnProgressListener { taskSnapshot ->
                     //displaying the upload progress
                     val progress = 100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount

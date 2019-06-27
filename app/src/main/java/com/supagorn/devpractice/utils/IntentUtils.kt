@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.provider.MediaStore
-import android.support.v4.app.ActivityCompat
+import androidx.core.app.ActivityCompat
 
 import com.supagorn.devpractice.MyApplication
 

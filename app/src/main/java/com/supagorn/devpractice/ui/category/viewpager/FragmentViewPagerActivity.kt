@@ -1,7 +1,7 @@
 package com.supagorn.devpractice.ui.category.viewpager
 
 import android.content.Intent
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import com.supagorn.devpractice.MyApplication
 import com.supagorn.devpractice.R
 import com.supagorn.devpractice.customs.AbstractActivity
@@ -35,7 +35,7 @@ class FragmentViewPagerActivity : AbstractActivity() {
 
         val adapter: SimpleFragmentPagerAdapter<String> = SimpleFragmentPagerAdapter(supportFragmentManager,
                 lists, object : SimpleFragmentPagerAdapter.OnBindViewListener {
-            override fun <T : Any?> getItem(item: T, position: Int): Fragment {
+            override fun <T : Any?> getItem(item: T, position: Int): androidx.fragment.app.Fragment {
                 val text = item as String
                 return SampleFragment.newInstance(position, "$text #$position")
             }
