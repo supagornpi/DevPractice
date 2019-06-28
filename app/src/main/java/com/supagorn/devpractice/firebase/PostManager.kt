@@ -3,6 +3,7 @@ package com.supagorn.devpractice.firebase
 import android.util.Log
 import com.google.firebase.database.*
 import com.supagorn.devpractice.model.home.Post
+import java.util.HashMap
 
 class PostManager {
 
@@ -23,6 +24,20 @@ class PostManager {
 
     fun getUserPostRef(uid: String, key: String): DatabaseReference {
         return mDatabase.child("user-posts").child(uid).child(key)
+    }
+
+    fun writeNewPost(userId: String, fullName: String, username: String, body: String) {
+        // Create new submitPost at /user-posts/$userid/$postid
+        // and at /posts/$postid simultaneously
+        val key = mDatabase.child("posts").push().key
+        val post = Post(key, userId, fullName, username, body)
+        val postValues = post.toMap()
+
+        val childUpdates = HashMap<String, Any>()
+        childUpdates["/posts/$key"] = postValues
+        childUpdates["/user-posts/$userId/$key"] = postValues
+
+        mDatabase.updateChildren(childUpdates)
     }
 
     fun removePost(uid: String, key: String) {

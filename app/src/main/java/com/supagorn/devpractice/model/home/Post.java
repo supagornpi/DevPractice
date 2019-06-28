@@ -3,6 +3,8 @@ package com.supagorn.devpractice.model.home;
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 import com.google.firebase.database.ServerValue;
+import com.google.gson.annotations.SerializedName;
+import com.supagorn.devpractice.enums.PostViewType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +12,9 @@ import java.util.Map;
 @IgnoreExtraProperties
 public class Post {
     public int id;
+    public String key;
     public String imageUrl;
+    public String imageProfileUrl;
 
     public String fullName;
     public String uid;
@@ -21,11 +25,15 @@ public class Post {
     public int commentCount = 0;
     public Map<String, Boolean> likes = new HashMap<>();
 
+    @SerializedName("viewType")
+    public PostViewType viewType;
+
     public Post() {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)
     }
 
-    public Post(String uid, String fullName, String author, String body) {
+    public Post(String key, String uid, String fullName, String author, String body) {
+        this.key = key;
         this.uid = uid;
         this.fullName = fullName;
         this.author = author;
@@ -36,6 +44,7 @@ public class Post {
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("id", id);
+        result.put("key", key);
         result.put("fullName", fullName);
         result.put("uid", uid);
         result.put("author", author);
@@ -44,6 +53,7 @@ public class Post {
         result.put("likeCount", likeCount);
         result.put("commentCount", commentCount);
         result.put("likes", likes);
+        result.put("viewType", viewType);
         return result;
     }
 }

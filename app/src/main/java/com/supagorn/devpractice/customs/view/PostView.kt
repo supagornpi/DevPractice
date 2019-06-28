@@ -3,11 +3,11 @@ package com.supagorn.devpractice.customs.view
 import android.animation.AnimatorInflater
 import android.content.Context
 import android.os.Build
-import androidx.annotation.RequiresApi
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import com.google.firebase.database.DatabaseReference
 import com.supagorn.devpractice.R
 import com.supagorn.devpractice.dialog.DialogLists
@@ -89,9 +89,14 @@ class PostView : LinearLayout {
         }
     }
 
+    fun bindWithImage(imageUrl: String) {
+        layoutImage.visibility = View.VISIBLE
+        GlideLoader.load(context, imageUrl, imgPostImage)
+    }
+
     private fun fetchUserImage(uid: String, post: Post) {
         //update profile
-        if (post.imageUrl.isNullOrEmpty()) {
+        if (post.imageProfileUrl.isNullOrEmpty()) {
             //update user image
             UserManager.instance.getImage(uid, object : UserManager.OnEventListener {
                 override fun <T> onDataChange(model: T) {
@@ -102,12 +107,12 @@ class PostView : LinearLayout {
                     }
                     //casting
                     model as Upload
-                    post.imageUrl = model.url
-                    GlideLoader.loadImageCircle(context, post.imageUrl, ivProfile)
+                    post.imageProfileUrl = model.url
+                    GlideLoader.loadImageCircle(context, post.imageProfileUrl, ivProfile)
                 }
             }, Upload::class.java)
         } else {
-            GlideLoader.loadImageCircle(context, post.imageUrl, ivProfile)
+            GlideLoader.loadImageCircle(context, post.imageProfileUrl, ivProfile)
         }
     }
 

@@ -1,69 +1,40 @@
 package com.supagorn.devpractice.customs.adapter.kotlin
 
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.supagorn.devpractice.R
 
-class FlexibleAdapter<T>(private var onBindViewListener: OnBindViewListener, onDiffCallback: OnDiffCallback) :
-
+class FlexibleAdapter<T>(private var onBindViewListener: OnBindViewListener, onDiffCallback: OnDiffCallback? = null) :
         ListAdapter<T, RecyclerView.ViewHolder>(AsyncDifferConfig.Builder(PostDiffCallback<T>(onDiffCallback)).build()) {
 
-    companion object {
-        const val TYPE_LOAD_MORE = 0
-        const val TYPE_ITEM = 1
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return when (viewType) {
-            TYPE_LOAD_MORE -> {
-                val viewLoadMore = LayoutInflater.from(parent.context).inflate(R.layout.view_load_more,
-                        parent, false)
-                ViewHolder(viewLoadMore)
-            }
-            TYPE_ITEM -> {
-                val view = onBindViewListener.onCreateView(parent, viewType)
-                view.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT)
-                ViewHolder(view)
-            }
-            else -> {
-                ViewHolder(LinearLayout(parent.context))
-            }
-        }
+        val view = onBindViewListener.onCreateView(parent, viewType)
+        return ViewHolder(view)
     }
 
     override fun getItemViewType(position: Int): Int {
-        return TYPE_ITEM;
-//        return super.getItemViewType(position)
+        return onBindViewListener.getItemViewType(currentList[position], position)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (currentList.isNullOrEmpty()) return
+        onBindViewListener.onBindViewHolder(currentList[position], holder.itemView, holder.itemViewType, position)
 
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-
-    class PostDiffCallback<T>(private val onDiffCallback: OnDiffCallback) : DiffUtil.ItemCallback<T>() {
+    class PostDiffCallback<T>(private val onDiffCallback: OnDiffCallback?) : DiffUtil.ItemCallback<T>() {
 
         override fun areItemsTheSame(oldItem: T, newItem: T): Boolean {
-            //return oldItem.id == newItem.id
-
-            return onDiffCallback.areItemsTheSame(oldItem, newItem)
+            return onDiffCallback?.areItemsTheSame(oldItem, newItem) ?: false
         }
 
         override fun areContentsTheSame(oldItem: T, newItem: T): Boolean {
-            //if (oldItem is PhotoPost && newItem is PhotoPost) {
-            //return oldItem.url == newItem.url && oldItem.text == newItem.text && oldItem.timestamp == newItem.timestamp
-            //}
-            return onDiffCallback.areContentsTheSame(oldItem, newItem)
-
+            return onDiffCallback?.areContentsTheSame(oldItem, newItem) ?: false
         }
     }
 
@@ -71,6 +42,8 @@ class FlexibleAdapter<T>(private var onBindViewListener: OnBindViewListener, onD
         fun <T> onBindViewHolder(item: T, itemView: View, viewType: Int, position: Int)
 
         fun onCreateView(parent: ViewGroup, viewType: Int): View
+
+        fun <T> getItemViewType(item: T, position: Int): Int
     }
 
     interface OnDiffCallback {

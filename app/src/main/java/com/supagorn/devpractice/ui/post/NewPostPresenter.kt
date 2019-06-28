@@ -14,7 +14,6 @@ import com.supagorn.devpractice.firebase.UserManager.Companion.STORAGE_PATH_PROF
 import com.supagorn.devpractice.model.Upload
 import com.supagorn.devpractice.model.account.User
 import com.supagorn.devpractice.model.home.Post
-import java.util.*
 
 
 class NewPostPresenter constructor(private var view: NewPostContract.View) : NewPostContract.Presenter {
@@ -51,7 +50,7 @@ class NewPostPresenter constructor(private var view: NewPostContract.View) : New
                     if (user == null) {
                         view.postFailed()
                     } else {
-                        writeNewPost(userId, "${user.firstName} ${user.lastName}", user.username, body)
+                        PostManager.instance.writeNewPost(userId, "${user.firstName} ${user.lastName}", user.username, body)
                     }
                     view.postSuccess()
 //                    finish()
@@ -81,20 +80,6 @@ class NewPostPresenter constructor(private var view: NewPostContract.View) : New
             isValid = true
         }
         return isValid
-    }
-
-    private fun writeNewPost(userId: String, fullName: String, username: String, body: String) {
-        // Create new submitPost at /user-posts/$userid/$postid
-        // and at /posts/$postid simultaneously
-        val key = mDatabase.child("posts").push().key
-        val post = Post(userId, fullName, username, body)
-        val postValues = post.toMap()
-
-        val childUpdates = HashMap<String, Any>()
-        childUpdates["/posts/$key"] = postValues
-        childUpdates["/user-posts/$userId/$key"] = postValues
-
-        mDatabase.updateChildren(childUpdates)
     }
 
     private fun uploadFile(uri: Uri, username: String) {

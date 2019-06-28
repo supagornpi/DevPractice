@@ -11,7 +11,8 @@ import com.supagorn.devpractice.R
 import com.supagorn.devpractice.constants.AppEventsConstants
 import com.supagorn.devpractice.customs.AbstractFragment
 import com.supagorn.devpractice.customs.adapter.kotlin.FlexibleAdapter
-import com.supagorn.devpractice.customs.view.PostView
+import com.supagorn.devpractice.customs.adapter.viewholder.PostViewHolderFactory
+import com.supagorn.devpractice.enums.PostViewType
 import com.supagorn.devpractice.firebase.PostManager
 import com.supagorn.devpractice.model.Upload
 import com.supagorn.devpractice.model.account.User
@@ -79,7 +80,7 @@ class HomeFragment : AbstractFragment(), SidebarContract.View {
 //        val options = FirebaseRecyclerOptions.Builder<Post>()
 //                .setQuery(postsQuery, Post::class.java)
 //                .build()
-//
+////
 //        mFirebaseAdapter = object : FirebaseRecyclerAdapter<Post, PostViewHolder>(options) {
 //            override fun onBindViewHolder(viewHolder: PostViewHolder, position: Int, model: Post) {
 //                val postRef = getRef(position)
@@ -106,26 +107,24 @@ class HomeFragment : AbstractFragment(), SidebarContract.View {
 
         adapter = FlexibleAdapter(object : FlexibleAdapter.OnBindViewListener {
             override fun <T> onBindViewHolder(item: T, itemView: View, viewType: Int, position: Int) {
-                itemView as PostView
-
-                // Bind Post to ViewHolder, setting OnClickListener for the star button
-                itemView.bind(item as Post, null)
+                PostViewHolderFactory.bindView(item as Post, itemView, viewType, position)
             }
 
             override fun onCreateView(parent: ViewGroup, viewType: Int): View {
-                return PostView(context!!)
+                return PostViewHolderFactory.createView(parent, viewType)
             }
+
+            override fun <T> getItemViewType(item: T, position: Int): Int {
+                return if ((item as Post).viewType == null) PostViewType.Empty.ordinal else item.viewType.ordinal
+            }
+
         }, object : FlexibleAdapter.OnDiffCallback {
             override fun <T> areItemsTheSame(oldItem: T, newItem: T): Boolean {
-                oldItem as Post
-                newItem as Post
-                return oldItem.id == newItem.id
+                return PostViewHolderFactory.areItemsTheSame(oldItem, newItem)
             }
 
             override fun <T> areContentsTheSame(oldItem: T, newItem: T): Boolean {
-                oldItem as Post
-                newItem as Post
-                return oldItem.body == newItem.body && oldItem.timestamp == newItem.timestamp
+                return PostViewHolderFactory.areContentsTheSame(oldItem, newItem)
             }
         })
 
