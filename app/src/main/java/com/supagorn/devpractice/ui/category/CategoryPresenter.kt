@@ -9,6 +9,7 @@ class CategoryPresenter constructor(val view: CategoryContract.View) : CategoryC
         categories.add(Categories.Video)
         categories.add(Categories.ViewPagerVertical)
         categories.add(Categories.FragmentViewPagerVertical)
+        categories.add(Categories.SlideToDismissActivity)
         view.showCategory(categories)
     }
 

@@ -13,6 +13,8 @@ enum class PostViewType {
             val creatorMap = HashMap<Int, PostViewType>()
             creatorMap[Caption.ordinal] = Caption
             creatorMap[Image.ordinal] = Image
+            creatorMap[Empty.ordinal] = Empty
+            creatorMap[Loading.ordinal] = Loading
             return if (creatorMap[type] == null) Empty else creatorMap[type]!!
         }
     }

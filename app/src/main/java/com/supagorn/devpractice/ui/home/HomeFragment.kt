@@ -11,7 +11,9 @@ import com.supagorn.devpractice.R
 import com.supagorn.devpractice.constants.AppEventsConstants
 import com.supagorn.devpractice.customs.AbstractFragment
 import com.supagorn.devpractice.customs.adapter.kotlin.FlexibleAdapter
+import com.supagorn.devpractice.customs.adapter.viewholder.FeedViewHolderFactory
 import com.supagorn.devpractice.customs.adapter.viewholder.PostViewHolderFactory
+import com.supagorn.devpractice.enums.FeedViewType
 import com.supagorn.devpractice.enums.PostViewType
 import com.supagorn.devpractice.firebase.PostManager
 import com.supagorn.devpractice.model.Upload
@@ -54,11 +56,13 @@ class HomeFragment : AbstractFragment(), SidebarContract.View {
         bindAction()
 //        initRecyclerView()
         initPostRecyclerView()
+//        initFeedRecyclerView()
         initPullToRefresh()
 
-        presenter.fetchUserImage()
+//        presenter.fetchUserImage()
 
         getPosts()
+        createItemFeed()
 
     }
 
@@ -131,6 +135,37 @@ class HomeFragment : AbstractFragment(), SidebarContract.View {
         recyclerView.adapter = adapter
     }
 
+    private fun initFeedRecyclerView() {
+        val mManager = LinearLayoutManager(context)
+        recyclerView.layoutManager = mManager
+
+        adapter = FlexibleAdapter(object : FlexibleAdapter.OnBindViewListener {
+            override fun <T> onBindViewHolder(item: T, itemView: View, viewType: Int, position: Int) {
+                FeedViewHolderFactory.bindView(item as Post, itemView, viewType, position)
+            }
+
+            override fun onCreateView(parent: ViewGroup, viewType: Int): View {
+                return FeedViewHolderFactory.createView(parent, viewType)
+            }
+
+            override fun <T> getItemViewType(item: T, position: Int): Int {
+                return if ((item as Post).feedViewType == null) FeedViewType.Unknown.ordinal else item.feedViewType.ordinal
+            }
+
+        }, object : FlexibleAdapter.OnDiffCallback {
+            override fun <T> areItemsTheSame(oldItem: T, newItem: T): Boolean {
+                return FeedViewHolderFactory.areItemsTheSame(oldItem, newItem)
+            }
+
+            override fun <T> areContentsTheSame(oldItem: T, newItem: T): Boolean {
+                return FeedViewHolderFactory.areContentsTheSame(oldItem, newItem)
+            }
+        })
+
+        recyclerView.adapter = adapter
+    }
+
+
     private fun initPullToRefresh() {
         swipeRefreshLayout.setOnRefreshListener {
             getPosts()
@@ -155,6 +190,14 @@ class HomeFragment : AbstractFragment(), SidebarContract.View {
                 adapter.submitList(posts)
             }
         })
+    }
+
+    private fun createItemFeed() {
+        val posts = ArrayList<Post>()
+        posts.add(Post("มีน พิีญา", "https://f.ptcdn.info/428/029/000/1426577791-1102299266-o.jpg", "พามากินของอร่อย", FeedViewType.ProfileHeader))
+        posts.add(Post("https://f.ptcdn.info/428/029/000/1426577791-1102299266-o.jpg", FeedViewType.Image))
+        posts.add(Post("พามากินของอร่อย", 88, FeedViewType.Comment))
+        adapter.submitList(posts)
     }
 
 //    override fun onStart() {

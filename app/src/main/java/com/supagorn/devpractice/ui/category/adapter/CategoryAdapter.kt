@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.supagorn.devpractice.R
 import com.supagorn.devpractice.enums.Categories
+import com.supagorn.devpractice.ui.category.slidedismiss.SlideToDismissActivity
 import com.supagorn.devpractice.ui.category.viewpager.FragmentViewPagerActivity
 import com.supagorn.devpractice.ui.category.viewpager.ViewPagerActivity
 import com.supagorn.devpractice.ui.video.VideoFullScreenActivity
@@ -52,6 +53,9 @@ class CategoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 }
                 Categories.FragmentViewPagerVertical -> {
                     FragmentViewPagerActivity.start()
+                }
+                Categories.SlideToDismissActivity -> {
+                    SlideToDismissActivity.start()
                 }
             }
         }

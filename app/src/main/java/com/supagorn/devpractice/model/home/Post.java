@@ -4,6 +4,7 @@ import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 import com.google.firebase.database.ServerValue;
 import com.google.gson.annotations.SerializedName;
+import com.supagorn.devpractice.enums.FeedViewType;
 import com.supagorn.devpractice.enums.PostViewType;
 
 import java.util.HashMap;
@@ -28,6 +29,8 @@ public class Post {
     @SerializedName("viewType")
     public PostViewType viewType;
 
+    public FeedViewType feedViewType;
+
     public Post() {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)
     }
@@ -38,6 +41,22 @@ public class Post {
         this.fullName = fullName;
         this.author = author;
         this.body = body;
+    }
+
+    public Post(String fullName, String imageUrl, String body, FeedViewType viewType) {
+        this.imageUrl = imageUrl;
+        this.fullName = fullName;
+        this.body = body;
+        this.feedViewType = viewType;
+    }
+    public Post(String imageUrl, FeedViewType viewType) {
+        this.imageUrl = imageUrl;
+        this.feedViewType = viewType;
+    }
+    public Post(String body, int likeCount, FeedViewType viewType) {
+        this.body = body;
+        this.likeCount = likeCount;
+        this.feedViewType = viewType;
     }
 
     @Exclude

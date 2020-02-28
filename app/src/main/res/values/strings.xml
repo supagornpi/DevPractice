@@ -63,6 +63,7 @@
     <string name="category_video">Video</string>
     <string name="category_view_pager_vertical" translatable="false">ViewPager Vertical</string>
     <string name="category_fragment_view_pager_vertical" translatable="false">Fragment ViewPager Vertical</string>
+    <string name="category_slide_to_dismiss_activity" translatable="false">Slide to dismiss activity</string>
 
     <!--Register-->
     <string name="register">Register</string>

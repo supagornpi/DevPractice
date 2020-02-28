@@ -39,6 +39,7 @@ class NewPostActivity : AbstractActivity(), NewPostContract.View {
         fun start() {
             AppEventLogger.logEvent(AppEventsConstants.EVENT_NAME_VIEW_NEW_POST)
             val intent = Intent(MyApplication.instance, NewPostActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             MyApplication.instance.startActivity(intent)
         }
 
@@ -47,6 +48,7 @@ class NewPostActivity : AbstractActivity(), NewPostContract.View {
             val intent = Intent(MyApplication.instance, NewPostActivity::class.java)
             intent.putExtra(EXTRA_EDIT_MODE, true)
             intent.putExtra(EXTRA_POST_KEY, postKey)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             MyApplication.instance.startActivity(intent)
         }
     }

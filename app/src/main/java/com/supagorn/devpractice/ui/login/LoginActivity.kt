@@ -26,6 +26,7 @@ class LoginActivity : AbstractActivity(), LoginContract.View {
         fun start() {
             AppEventLogger.logEvent(AppEventsConstants.EVENT_NAME_VIEW_LOGIN)
             val intent = Intent(MyApplication.instance, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             MyApplication.instance.startActivity(intent)
         }
     }

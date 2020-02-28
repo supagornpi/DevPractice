@@ -45,6 +45,12 @@ class GlideLoader {
                     .into(imageView)
         }
 
+        fun load(url: String, imageView: ImageView) {
+            Glide.with(MyApplication.instance)
+                    .load(url)
+                    .into(imageView)
+        }
+
         fun loadImageCircle(context: Context, imageId: Int, imageView: ImageView) {
             Glide.with(context)
                     .load(imageId)

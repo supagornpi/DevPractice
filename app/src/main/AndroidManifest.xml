@@ -45,6 +45,10 @@
         <activity
             android:name=".ui.category.viewpager.FragmentViewPagerActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.category.slidedismiss.SlideToDismissActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeTransparent"/>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
